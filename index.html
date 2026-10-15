@@ -88,6 +88,14 @@
 .mascot-voice-toolbar button[aria-pressed="true"]{background:#ec168c;color:#fff;border-color:#ec168c}
 .mascot-voice-toolbar button:disabled{opacity:.5;cursor:not-allowed}
 #mascot-voice-status{font-size:12px;color:#625a64}
+
+/* Optional listen buttons throughout the site */
+.read-aloud{display:inline-flex;align-items:center;gap:6px;margin:8px 8px 8px 0;padding:8px 12px;border:1px solid #f0b3d1;border-radius:999px;background:#fff4fa;color:#9f0a60;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.read-aloud:focus-visible{outline:3px solid #77236a;outline-offset:2px}
+.read-aloud:disabled{opacity:.5;cursor:not-allowed}
+.global-voice-bar{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:1000;background:#fff;color:#30212a;box-shadow:0 8px 30px #0003;border:1px solid #f0b3d1;border-radius:14px;padding:9px 12px;display:none;align-items:center;gap:10px;max-width:calc(100vw - 24px);font-size:12px}
+.global-voice-bar.visible{display:flex}
+.global-voice-bar button{background:#ec168c;color:white;border:0;border-radius:9px;padding:8px 12px;font:inherit;font-weight:700}
 </style>
 </head>
 <body>
@@ -97,7 +105,7 @@
 <section class="section" id="steps"><div class="section-head"><div><div class="eyebrow">SERVICE JOURNEY</div><h2>4 ขั้นตอนการรับบริการ</h2><p class="sub">เลือกขั้นตอนเพื่อดูรายละเอียดของการรับบริการ</p></div></div><div class="steps" id="station-grid"></div><div aria-live="polite" class="detail" id="station-detail" tabindex="-1"></div></section>
 <section class="section" id="knowledge"><div class="eyebrow">HEALTH KNOWLEDGE</div><h2>ความรู้สุขภาพทางเพศ</h2><p class="sub" style="margin-bottom:20px">ข้อมูลพื้นฐานเพื่อช่วยให้เข้าใจการดูแลสุขภาพและการป้องกัน</p><div class="info-grid"><article class="info"><h3>HIV</h3><p>ตรวจเพื่อทราบสถานะ และรับคำแนะนำเรื่องระยะเวลาที่เหมาะสมในการตรวจจากเจ้าหน้าที่</p></article><article class="info"><h3>PrEP</h3><p>ยาป้องกัน HIV ก่อนการสัมผัสเชื้อสำหรับผู้ที่มีข้อบ่งชี้ ต้องรับการประเมินจากบุคลากรสุขภาพ</p></article><article class="info"><h3>PEP (เป๊บ)</h3><p>ยาป้องกัน HIV หลังมีความเสี่ยง ควรเริ่มโดยเร็วที่สุดและไม่เกิน 72 ชั่วโมงหลังสัมผัส</p></article><article class="info"><h3>STI</h3><p>โรคติดต่อทางเพศสัมพันธ์บางชนิดไม่มีอาการ การตรวจและรับการรักษาอย่างเหมาะสมช่วยดูแลสุขภาพได้</p></article></div><p class="notice">ข้อมูลนี้เป็นสื่อให้ความรู้ทั่วไป ไม่ใช้แทนการประเมินทางการแพทย์</p></section>
 <section aria-label="เครื่องมือจัดการลิงก์สำหรับจุดบริการ" class="qr-section"><details><summary>สำหรับเจ้าหน้าที่: ลิงก์ QR Code ประจำจุดบริการ</summary><p class="sub">สแกน QR ของแต่ละจุดเพื่อเปิดข้อมูลเฉพาะขั้นตอนนั้นได้ทันที พิมพ์ QR จากไฟล์ที่แนบในชุดดาวน์โหลด</p><div class="qr-grid" id="qr-list"></div><p class="qr-note">QR เหล่านี้เป็นลิงก์คงที่ของเว็บไซต์เดียวกัน เมื่อแก้เนื้อหาบนเว็บ QR เดิมยังใช้งานได้ ตราบใดที่ที่อยู่เว็บไซต์และชื่อขั้นตอนไม่เปลี่ยน</p></details></section>
-</main><footer class="footer">SWING Pattaya · Sexual Health Education · AR Experience</footer>
+</main><div class="global-voice-bar" id="global-voice-bar" role="status" aria-live="polite"><span id="global-voice-label">แฮปปี้ลัคกี้กำลังอ่าน</span><button type="button" id="global-voice-stop">■ หยุดเสียง</button></div><footer class="footer">SWING Pattaya · Sexual Health Education · AR Experience</footer>
 <script>
 const stations=[
 {id:'registration',title:'ลงทะเบียน',short:'รับคิวและลงทะเบียน',image:'step-1.webp',text:'ติดต่อเจ้าหน้าที่เพื่อแจ้งความประสงค์รับบริการ และลงทะเบียนตามระบบของคลินิก โดยเจ้าหน้าที่จะอธิบายขั้นตอนและการดูแลข้อมูลส่วนบุคคล'},
@@ -155,10 +163,10 @@ const model=document.getElementById('cat'),status=document.getElementById('model
 
 // Mascot text guide: works independently of model animations, AR and camera permissions.
 const mascotMessages={
- registration:'สวัสดีครับ ผมแฮปปี้ลัคกี้! ขั้นตอนที่ 1 ลงทะเบียน\nเจ้าหน้าที่จะต้อนรับ สอบถามบริการที่ต้องการ และอธิบายการลงทะเบียน รวมถึงการดูแลข้อมูลส่วนบุคคลครับ',
- counseling:'ขั้นตอนที่ 2 ให้คำปรึกษา\nเราจะพูดคุยเรื่องสุขภาพและการตรวจอย่างเป็นส่วนตัว โดยไม่ตัดสิน หากมีความเสี่ยง HIV ภายใน 72 ชั่วโมง ควรแจ้งเจ้าหน้าที่ทันทีเพื่อประเมิน PEP (เป๊บ) ครับ',
- testing:'ขั้นตอนที่ 3 เจาะเลือด\nเจ้าหน้าที่จะอธิบายการเก็บตัวอย่างก่อนดำเนินการ หากเคยเป็นลมเมื่อเจาะเลือดหรือกังวลเรื่องใด แจ้งได้เลยครับ',
- results:'ขั้นตอนที่ 4 ฟังผลตรวจ\nเจ้าหน้าที่จะอธิบายผลเป็นการส่วนตัว ให้คำแนะนำ และประสานการตรวจยืนยันหรือส่งต่อเมื่อจำเป็นครับ'
+ registration:'ฮัลโหล สวัสดีคร้าบ! ผมแฮปปี้ลัคกี้ ยินดีต้อนรับสู่สวิงพัทยานะครับ! มาเริ่มกันที่ขั้นตอนแรก ลงทะเบียนกันเลย เจ้าหน้าที่จะต้อนรับ พูดคุยว่าคุณอยากใช้บริการอะไร และอธิบายวิธีลงทะเบียนให้เข้าใจง่าย ๆ ไม่ต้องกังวลนะครับ ข้อมูลส่วนตัวของคุณจะได้รับการดูแลอย่างเป็นความลับครับ',
+ counseling:'มาถึงขั้นตอนที่สองแล้วครับ! เรามาคุยกันแบบสบาย ๆ เรื่องสุขภาพและการตรวจกันนะครับ เจ้าหน้าที่พร้อมรับฟังอย่างเป็นส่วนตัว ไม่ตัดสินแน่นอน ถ้าคุณเพิ่งมีความเสี่ยงเอช ไอ วี ภายในเจ็ดสิบสองชั่วโมง รีบบอกเจ้าหน้าที่ได้เลยนะครับ เพื่อประเมินการใช้ยาเป๊บ ยิ่งเร็ว ยิ่งดีครับ',
+ testing:'เย้! ถึงขั้นตอนที่สามแล้วครับ ขั้นตอนเจาะเลือดนั่นเอง ก่อนเริ่ม เจ้าหน้าที่จะอธิบายให้ฟังก่อนทุกครั้งนะครับ ถ้ากลัวเข็ม เคยหน้ามืด หรือมีอะไรที่กังวล บอกพี่ ๆ เจ้าหน้าที่ได้เลยครับ เราพร้อมดูแลคุณนะ',
+ results:'มาถึงขั้นตอนสุดท้ายแล้วครับ! การฟังผลตรวจ เจ้าหน้าที่จะอธิบายผลให้คุณฟังเป็นการส่วนตัว พร้อมตอบทุกข้อสงสัยเลยนะครับ ถ้าจำเป็นต้องตรวจยืนยันหรือส่งต่อ ก็จะมีเจ้าหน้าที่ช่วยประสานให้ครับ ขอบคุณที่ดูแลสุขภาพตัวเองนะครับ เก่งมากเลย!'
 };
 // Mobile-friendly Thai speech: always begin from an explicit user tap.
 const mascotSynth=('speechSynthesis' in window && 'SpeechSynthesisUtterance' in window)?window.speechSynthesis:null;
@@ -178,7 +186,7 @@ function stopMascotVoice(){
  if(mascotSynth)mascotSynth.cancel();
  mascotUtterance=null;
 }
-function speakMascot(fromTap=false){
+function speakMascot(fromTap=false, spokenText=null){
  if(!mascotSynth||!mascotVoiceEnabled)return;
  // Safari/iOS can silently refuse a speech request made immediately after cancel().
  // Do not cancel on the initial tap; for later changes, use a small delay.
@@ -186,16 +194,16 @@ function speakMascot(fromTap=false){
  if(alreadySpeaking)mascotSynth.cancel();
  const token=++mascotSpeechToken;
  // Keep medical abbreviations visible on screen; expand them only for speech.
- const text=mascotSpeech.textContent.trim().replace(/\n/g,' ')
+ const text=(spokenText===null?mascotSpeech.textContent:spokenText).trim().replace(/\n/g,' ')
+  .replace(/PrEP/gi,'เพร็พ')
   .replace(/HIV/gi,'เอช ไอ วี')
   .replace(/PEP\s*\(เป๊บ\)|PEP/gi,'เป๊บ')
-  .replace(/PrEP/gi,'เพร็พ')
   .replace(/STI(s)?/gi,'เอส ที ไอ');
  const utterance=new SpeechSynthesisUtterance(text);
  mascotUtterance=utterance; // Keep a strong reference for mobile Safari.
  utterance.lang='th-TH';
- utterance.rate=1.02;
- utterance.pitch=1.19; // Brighter, younger-sounding; browser support varies.
+ utterance.rate=0.96;
+ utterance.pitch=1.12; // Friendly youthful tone, without overly cartoonish pitch; varies by device.
  utterance.volume=1;
  const voice=chooseThaiVoice();
  if(voice)utterance.voice=voice;
@@ -262,5 +270,67 @@ mascotShow.addEventListener('click',()=>{
 });
 mascotNext.addEventListener('click',()=>setMascotStep(stations[(mascotStepIndex+1)%stations.length].id));
 setMascotStep(new URLSearchParams(location.search).get('station')||stations[0].id);
+
+// Site-wide, tap-to-listen narration. No autoplay; never reads private input fields.
+const globalVoiceBar=document.getElementById('global-voice-bar');
+const globalVoiceLabel=document.getElementById('global-voice-label');
+const globalVoiceStop=document.getElementById('global-voice-stop');
+let globalVoiceObserver=null;
+function hideGlobalVoice(){globalVoiceBar.classList.remove('visible')}
+function readAloud(text,label){
+ if(!mascotSynth){alert('เบราว์เซอร์นี้ไม่รองรับการอ่านออกเสียงภาษาไทย');return}
+ const safeText=String(text||'').replace(/🔊\s*ฟัง[^\n]*/g,' ').replace(/\s+/g,' ').trim();
+ if(!safeText)return;
+ mascotVoiceEnabled=true;
+ mascotVoiceToggle.setAttribute('aria-pressed','true');
+ mascotVoiceToggle.textContent='■ ปิดเสียง';
+ mascotVoiceReplay.disabled=false;
+ globalVoiceLabel.textContent='แฮปปี้ลัคกี้กำลังเล่าให้ฟัง: '+label;
+ globalVoiceBar.classList.add('visible');
+ speakMascot(true,safeText);
+}
+globalVoiceStop.addEventListener('click',()=>{stopMascotVoice();hideGlobalVoice();mascotVoiceStatus.textContent='หยุดเสียงแล้ว'});
+mascotVoiceToggle.addEventListener('click',()=>{if(!mascotVoiceEnabled)hideGlobalVoice()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)hideGlobalVoice()});
+function addReadButton(parent,label,getText,position='afterbegin'){
+ if(!parent||parent.querySelector(':scope > .read-aloud'))return;
+ const button=document.createElement('button');
+ button.type='button';button.className='read-aloud';button.textContent='🔊 ฟัง'+label;
+ button.setAttribute('aria-label','ฟังแฮปปี้ลัคกี้อ่าน'+label);
+ button.disabled=!mascotSynth;
+ button.addEventListener('click',()=>readAloud(getText(),label));
+ parent.insertAdjacentElement(position,button);
+}
+function setupAllReadButtons(){
+ // Introduction, 4-step overview, health information, and the QR instruction section.
+ const hero=document.querySelector('.hero-copy');
+ addReadButton(hero,'คำแนะนำเว็บไซต์',()=>[hero.querySelector('h1')?.textContent,hero.querySelector('.lead')?.textContent].filter(Boolean).join(' '),'beforeend');
+ const stepsHead=document.querySelector('#steps .section-head');
+ addReadButton(stepsHead,'ภาพรวม 4 ขั้นตอน',()=>stations.map((s,i)=>'ขั้นตอนที่ '+(i+1)+' '+s.title+' '+s.text).join(' '),'beforeend');
+ document.querySelectorAll('#knowledge .info').forEach(card=>{
+  const title=card.querySelector('h3')?.textContent||'ข้อมูลสุขภาพ';
+  addReadButton(card,title,()=>card.textContent.replace(/🔊 ฟัง[^\\n]*/g,'').trim(),'beforeend');
+ });
+ // Service journey details update dynamically; create buttons on every render.
+ const current=document.querySelector('#station-detail .detail-content');
+ if(current){
+  const selected=document.querySelector('.step.active');
+  const s=stations.find(x=>x.id===selected?.dataset.id)||stations[0];
+  addReadButton(current,'ภาพรวมขั้นตอน'+s.title,()=>s.title+' '+s.text,'afterbegin');
+  const gallery=document.querySelector('#station-detail .real-gallery');
+  addReadButton(gallery,'คำอธิบายภาพ',()=>gallery.querySelector('.gallery-caption')?.textContent||'','beforeend');
+  current.querySelectorAll('.guide-accordion').forEach(section=>{
+   const summary=section.querySelector('summary');
+   const label=summary?.textContent||'รายละเอียด';
+   addReadButton(section,label,()=>label+' '+Array.from(section.querySelectorAll('li')).map(x=>x.textContent).join(' '),'beforeend');
+  });
+ }
+ const qrDetails=document.querySelector('.qr-section details');
+ if(qrDetails)addReadButton(qrDetails,'คำแนะนำคิวอาร์โค้ด',()=>qrDetails.querySelector('.sub')?.textContent||'','beforeend');
+}
+setupAllReadButtons();
+const detailReadObserver=new MutationObserver(()=>{detailReadObserver.disconnect();setupAllReadButtons();detailReadObserver.observe(detail,{childList:true})});
+detailReadObserver.observe(detail,{childList:true});
+
 </script>
 </body></html>
