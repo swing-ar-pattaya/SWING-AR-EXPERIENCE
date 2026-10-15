@@ -40,6 +40,24 @@
  .gallery-thumb img{width:72px;height:64px}
  .gallery-nav{width:42px;height:42px}
 }
+
+/* Interactive service guide — additive, preserves existing 3D, QR and galleries */
+.interactive-guide{margin-top:20px;border-top:1px solid var(--line,#eee);padding-top:18px}
+.guide-title{font-weight:800;font-size:18px;margin:0 0 8px;color:var(--ink,#18121d)}
+.guide-intro{font-size:13px;color:var(--muted,#666);margin:0 0 14px}
+.guide-accordion{border:1px solid #f2d6e4;border-radius:12px;margin:9px 0;overflow:hidden;background:#fff}
+.guide-accordion summary{cursor:pointer;padding:13px 15px;font-weight:700;color:#25202a;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.guide-accordion summary::-webkit-details-marker{display:none}
+.guide-accordion summary::after{content:'+';font-size:23px;color:#ec168c;font-weight:400}
+.guide-accordion[open] summary::after{content:'−'}
+.guide-accordion[open] summary{background:#fff1f7;color:#b60067}
+.guide-answer{padding:5px 16px 15px;font-size:14px;line-height:1.8}
+.guide-answer ul{padding-left:20px;margin:4px 0}.guide-answer li{margin:5px 0}
+.guide-next{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}
+.guide-next button{border:0;border-radius:11px;background:#ec168c;color:white;padding:12px 17px;font-weight:700;cursor:pointer;font:inherit}
+.guide-next button:focus-visible,.guide-accordion summary:focus-visible{outline:3px solid #b60067;outline-offset:3px}
+.guide-progress{font-size:12px;color:var(--muted,#666)}
+@media(max-width:700px){.guide-next button{width:100%}.guide-accordion summary{padding:14px}}
 </style>
 </head>
 <body>
@@ -81,7 +99,25 @@ function selectStation(id){
  open.addEventListener('click',()=>{large.src=photos[index];if(typeof dialog.showModal==='function')dialog.showModal();else window.open(photos[index],'_blank','noopener')});img.addEventListener('click',()=>open.click());
  img.addEventListener('error',()=>{img.alt='ไม่พบไฟล์ภาพ '+photos[index]+' กรุณาตรวจสอบชื่อไฟล์บน GitHub'});
  gallery.append(stage,bottom,thumbs,dialog);show(0);
- const content=document.createElement('div');content.className='detail-content';const tag=document.createElement('span');tag.className='detail-tag';tag.textContent='SERVICE STEP '+String(n).padStart(2,'0');const h=document.createElement('h3'),p=document.createElement('p');h.textContent=s.title;p.textContent=s.text;const note=document.createElement('p');note.style.marginTop='12px';note.style.fontSize='12px';note.style.color='var(--muted)';note.textContent='ภาพถ่ายจากการให้บริการจริงของ SWING พัทยา';content.append(tag,h,p,note);detail.append(gallery,content)
+ const content=document.createElement('div');content.className='detail-content';const tag=document.createElement('span');tag.className='detail-tag';tag.textContent='SERVICE STEP '+String(n).padStart(2,'0');const h=document.createElement('h3'),p=document.createElement('p');h.textContent=s.title;p.textContent=s.text;const note=document.createElement('p');note.style.marginTop='12px';note.style.fontSize='12px';note.style.color='var(--muted)';note.textContent='ภาพถ่ายจากการให้บริการจริงของ SWING พัทยา';content.append(tag,h,p,note);
+ // Interactive guide: information only; no personal health data collected.
+ const guides=[
+  {staff:['ต้อนรับและสอบถามความประสงค์ในการรับบริการ','แนะนำรายการบริการและอธิบายขั้นตอนการลงทะเบียน','ชี้แจงการดูแลข้อมูลส่วนบุคคลและส่งต่อไปยังจุดให้คำปรึกษา'],visitor:['แจ้งบริการที่ต้องการและให้ข้อมูลที่จำเป็นตามจริง','สอบถามเรื่องสิทธิบริการ ค่าใช้จ่าย หรือความเป็นส่วนตัวได้'],prep:['เตรียมข้อมูลที่จำเป็นต่อการลงทะเบียนตามที่เจ้าหน้าที่แจ้ง','ไม่จำเป็นต้องเปิดเผยข้อมูลสุขภาพต่อบุคคลอื่นในพื้นที่รอรับบริการ'],know:['การใช้เอกสารหรือข้อมูลระบุตัวตนขึ้นอยู่กับเงื่อนไขของบริการ','ระยะเวลารอคิวขึ้นอยู่กับจำนวนผู้รับบริการในวันนั้น']},
+  {staff:['พูดคุยและประเมินความเสี่ยงอย่างไม่ตัดสิน','อธิบายรายการตรวจ ระยะฟักตัว/ช่วงตรวจพบเชื้อ และความหมายของผลตรวจ','ให้ข้อมูลการป้องกัน เช่น ถุงยาง PrEP และ PEP ตามความเหมาะสม'],visitor:['เล่าข้อมูลที่เกี่ยวข้องเท่าที่สะดวกและสอบถามข้อสงสัย','ร่วมตัดสินใจเลือกรายการตรวจหลังได้รับข้อมูล'],prep:['หากมีเหตุสัมผัสเสี่ยงล่าสุด แจ้งช่วงเวลาที่เกิดเหตุแก่เจ้าหน้าที่','หากกังวลเรื่องความเป็นส่วนตัว สามารถแจ้งเจ้าหน้าที่ได้'],know:['หากสงสัยสัมผัสเชื้อ HIV ภายใน 72 ชั่วโมง ควรแจ้งทันทีเพื่อประเมิน PEP โดยไม่รอขั้นตอนปกติ','การตรวจบางชนิดอาจต้องตรวจซ้ำตามช่วงเวลาที่เหมาะสม']},
+  {staff:['ยืนยันรายการตรวจและอธิบายการเก็บตัวอย่างก่อนดำเนินการ','เก็บตัวอย่างโดยบุคลากรที่เกี่ยวข้องตามมาตรฐานความปลอดภัย','แจ้งขั้นตอนและจุดรอฟังผล'],visitor:['แจ้งประวัติเป็นลมเมื่อเจาะเลือดหรือข้อกังวลก่อนเริ่ม','ปฏิบัติตามคำแนะนำระหว่างและหลังเก็บตัวอย่าง'],prep:['สวมเสื้อที่เปิดบริเวณแขนได้สะดวก','การงดอาหารขึ้นอยู่กับรายการตรวจ ควรสอบถามเจ้าหน้าที่ก่อน'],know:['ปริมาณตัวอย่างและระยะเวลารอผลขึ้นอยู่กับชนิดการตรวจ','หากรู้สึกเวียนศีรษะหรือไม่สบาย ให้แจ้งเจ้าหน้าที่ทันที']},
+  {staff:['แจ้งผลเป็นการส่วนตัวและอธิบายความหมายของผลตรวจ','ให้คำแนะนำเรื่องการดูแลสุขภาพและการป้องกัน','ประสานตรวจยืนยัน การรักษา หรือส่งต่อเมื่อจำเป็น'],visitor:['รับฟังผลและสอบถามประเด็นที่ยังไม่เข้าใจ','ร่วมวางแผนการป้องกัน การตรวจซ้ำ หรือการติดตามตามคำแนะนำ'],prep:['เตรียมคำถามที่อยากปรึกษา','สามารถขอคำอธิบายเพิ่มเติมเกี่ยวกับผลตรวจและการติดตามได้'],know:['ผลคัดกรองที่มีปฏิกิริยาอาจต้องตรวจยืนยันตามแนวทาง','ผลลบอาจยังไม่ตัดการติดเชื้อจากการสัมผัสล่าสุด หากอยู่ในช่วงตรวจไม่พบเชื้อ']}
+ ];
+ const guide=guides[n-1];const wrapper=document.createElement('section');wrapper.className='interactive-guide';wrapper.setAttribute('aria-label','คู่มือขั้นตอน'+s.title);
+ const heading=document.createElement('h4');heading.className='guide-title';heading.textContent='เรียนรู้ขั้นตอนนี้';
+ const intro=document.createElement('p');intro.className='guide-intro';intro.textContent='แตะหัวข้อเพื่อดูรายละเอียดเพิ่มเติมได้ตามต้องการ';wrapper.append(heading,intro);
+ [['👩‍⚕️ เจ้าหน้าที่ทำอะไรบ้าง?',guide.staff],['🙋 ผู้รับบริการต้องทำอะไร?',guide.visitor],['📝 ต้องเตรียมตัวอย่างไร?',guide.prep],['💡 สิ่งที่ควรรู้',guide.know]].forEach(([label,items],i)=>{
+  const section=document.createElement('details');section.className='guide-accordion';if(i===0)section.open=true;
+  const summary=document.createElement('summary');summary.textContent=label;const answer=document.createElement('div');answer.className='guide-answer';const list=document.createElement('ul');items.forEach(value=>{const li=document.createElement('li');li.textContent=value;list.append(li)});answer.append(list);section.append(summary,answer);wrapper.append(section)
+ });
+ const actions=document.createElement('div');actions.className='guide-next';const progress=document.createElement('span');progress.className='guide-progress';progress.textContent='ขั้นตอน '+n+' จาก '+stations.length;actions.append(progress);
+ if(n<stations.length){const go=document.createElement('button');go.type='button';go.textContent='ไปขั้นตอนถัดไป →';go.addEventListener('click',()=>{const nextStation=stations[n];selectStation(nextStation.id);const u=new URL(location.href);u.searchParams.set('station',nextStation.id);history.replaceState(null,'',u);document.getElementById('station-detail').scrollIntoView({behavior:'smooth',block:'start'})});actions.append(go)}
+ else {const restart=document.createElement('button');restart.type='button';restart.textContent='↺ เริ่มดูตั้งแต่ขั้นตอนแรก';restart.addEventListener('click',()=>{selectStation(stations[0].id);const u=new URL(location.href);u.searchParams.set('station',stations[0].id);history.replaceState(null,'',u);document.getElementById('station-detail').scrollIntoView({behavior:'smooth',block:'start'})});actions.append(restart)}
+ wrapper.append(actions);content.append(wrapper);detail.append(gallery,content)
 }
 stations.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.className='step';b.dataset.id=s.id;const num=document.createElement('span'),strong=document.createElement('strong'),small=document.createElement('small');num.className='step-number';num.textContent=String(i+1).padStart(2,'0');strong.textContent=s.title;small.textContent=s.short;const pic=document.createElement('img');pic.className='step-image';pic.src='./'+s.image;pic.alt='ภาพขั้นตอน'+s.title;pic.loading='lazy';b.append(pic,num,strong,small);b.addEventListener('click',()=>{selectStation(s.id);const u=new URL(location.href);u.searchParams.set('station',s.id);history.replaceState(null,'',u)});grid.appendChild(b);const item=document.createElement('div');item.className='qr-item';const heading=document.createElement('strong');heading.textContent=s.title;const url=document.createElement('a');url.href=linkFor(s.id);url.textContent=linkFor(s.id);const copy=document.createElement('button');copy.type='button';copy.className='copy';copy.textContent='คัดลอกลิงก์';copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(linkFor(s.id));copy.textContent='คัดลอกแล้ว'}catch(e){window.prompt('คัดลอกลิงก์นี้',linkFor(s.id))}});const qrImg=document.createElement('img');qrImg.className='qr-preview';qrImg.src='./qr-'+s.id+'.png';qrImg.alt='QR Code สำหรับ'+s.title;qrImg.loading='lazy';item.append(heading,qrImg,url,copy);qr.appendChild(item)});
 const initial=new URLSearchParams(location.search).get('station');selectStation(initial);if(initial&&stations.some(s=>s.id===initial)){requestAnimationFrame(()=>setTimeout(()=>document.getElementById('steps').scrollIntoView({block:'start'}),350))}
