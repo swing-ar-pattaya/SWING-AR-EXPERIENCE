@@ -121,10 +121,19 @@
 .lang-picker select{max-width:125px;border:1px solid #e6c8d8;border-radius:10px;background:#fff;color:#30212a;padding:8px 9px;font:inherit;font-size:13px;font-weight:650;cursor:pointer}
 .lang-picker label{font-size:12px;color:#665560}
 @media(max-width:600px){.lang-picker label{display:none}.lang-picker select{max-width:94px;font-size:12px;padding:7px 5px}.nav{gap:8px}}
+
+/* Compact flag-only language controls */
+.lang-picker{gap:4px;flex-shrink:0}
+.lang-picker select{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;overflow:hidden!important}
+.lang-picker .flag-button{display:inline-flex;align-items:center;justify-content:center;min-width:34px;min-height:34px;padding:4px;border:1px solid transparent;border-radius:9px;background:transparent;cursor:pointer;font-size:23px;line-height:1;transition:background .15s,border-color .15s,transform .15s}
+.lang-picker .flag-button:hover{background:#fff0f8;transform:translateY(-1px)}
+.lang-picker .flag-button[aria-pressed="true"]{background:#fff0f8;border-color:#ec168c;box-shadow:0 0 0 1px #ec168c22}
+.lang-picker .flag-button:focus-visible{outline:3px solid #9b1767;outline-offset:2px}
+@media(max-width:600px){.lang-picker{gap:1px}.lang-picker .flag-button{font-size:20px;min-width:29px;min-height:32px;padding:3px}}
 </style>
 </head>
 <body>
-<header class="topbar"><div class="top-inner"><a aria-label="SWING Pattaya หน้าแรก" class="brand" href="#home"><img alt="SWING official logo" src="./swing-logo.png"/><span class="brand-copy">PATTAYA<br/>AR EXPERIENCE</span></a><nav aria-label="เมนูหลัก" class="nav"><a href="#home">หน้าแรก</a><a href="#steps">ขั้นตอนบริการ</a><a href="#knowledge">ความรู้สุขภาพ</a></nav><div class="lang-picker"><label for="site-language">🌐</label><select id="site-language" aria-label="Choose website language"><option value="th">🇹🇭 ไทย</option><option value="en">🇬🇧 English</option><option value="km">🇰🇭 ខ្មែរ</option><option value="my">🇲🇲 မြန်မာ</option></select></div></div></header>
+<header class="topbar"><div class="top-inner"><a aria-label="SWING Pattaya หน้าแรก" class="brand" href="#home"><img alt="SWING official logo" src="./swing-logo.png"/><span class="brand-copy">PATTAYA<br/>AR EXPERIENCE</span></a><nav aria-label="เมนูหลัก" class="nav"><a href="#home">หน้าแรก</a><a href="#steps">ขั้นตอนบริการ</a><a href="#knowledge">ความรู้สุขภาพ</a></nav><div class="lang-picker"><label for="site-language">🌐</label><select id="site-language" aria-label="Choose website language"><option value="th">🇹🇭 ไทย</option><option value="en">🇬🇧 English</option><option value="km">🇰🇭 ខ្មែរ</option><option value="my">🇲🇲 မြန်မာ</option></select><div class="flag-buttons" role="group" aria-label="เลือกภาษา / Choose language"><button type="button" class="flag-button" data-language="th" aria-label="ภาษาไทย" title="ภาษาไทย" aria-pressed="true">🇹🇭</button><button type="button" class="flag-button" data-language="en" aria-label="English" title="English" aria-pressed="false">🇬🇧</button><button type="button" class="flag-button" data-language="km" aria-label="ភាសាខ្មែរ" title="ភាសាខ្មែរ" aria-pressed="false">🇰🇭</button><button type="button" class="flag-button" data-language="my" aria-label="မြန်မာဘာသာ" title="မြန်မာဘာသာ" aria-pressed="false">🇲🇲</button></div></div></div></header>
 <main class="container">
 <section class="hero" id="home"><div class="hero-copy"><div class="eyebrow">SWING PATTAYA · INTERACTIVE EXPERIENCE</div><h1>เรียนรู้บริการสุขภาพ<br/><span>ในรูปแบบใหม่</span></h1><p class="lead">สำรวจขั้นตอนการรับบริการของ SWING พัทยา ผ่านตัวละคร 3D และเทคโนโลยี Augmented Reality (AR) ที่ช่วยให้การเรียนรู้เป็นเรื่องง่ายและเข้าถึงได้</p><div class="hero-actions"><a class="btn primary" href="#steps">สำรวจ 4 ขั้นตอนบริการ <span aria-hidden="true">→</span></a><a class="btn secondary" href="#cat-model">ดูโมเดล 3D</a></div><p class="model-status" id="model-status" role="status">กำลังโหลดโมเดล 3D…</p></div><div class="model-panel" id="cat-model"><span class="model-label">INTERACTIVE 3D MODEL</span><model-viewer alt="แฮปปี้ลัคกี้ (Happy Lucky) มาสคอต 3D ของ SWING พัทยา" ar="" ar-modes="webxr scene-viewer quick-look" ar-placement="floor" ar-scale="fixed" auto-rotate="" camera-controls="" environment-image="neutral" exposure="1" id="cat" loading="eager" rotation-per-second="8deg" shadow-intensity="1" src="./base_basic_shaded.glb"><button class="ar-button" slot="ar-button" type="button">เปิด AR บนมือถือ</button></model-viewer><div class="mascot-guide" id="mascot-guide" aria-label="มาสคอตแนะนำขั้นตอนบริการ"><div class="mascot-guide-title">แฮปปี้ลัคกี้ (Happy Lucky) พาชมบริการ</div><div class="mascot-speech" id="mascot-speech" role="status" aria-live="polite">สวัสดีครับ! ผมแฮปปี้ลัคกี้ ผู้ช่วยแนะนำบริการของ SWING พัทยาครับ เลือกขั้นตอนด้านล่าง แล้วผมจะเล่าให้ฟังว่าเกิดอะไรขึ้นบ้างครับ</div><div class="mascot-voice-toolbar" role="group" aria-label="เสียงบรรยายแฮปปี้ลัคกี้"><button type="button" id="mascot-voice-toggle" aria-pressed="false">🔊 เปิดเสียงบรรยาย</button><button type="button" id="mascot-voice-replay" disabled>↻ ฟังขั้นตอนนี้</button><span id="mascot-voice-status" role="status" aria-live="polite">แตะปุ่มเพื่อเริ่มเสียงบนมือถือ</span></div><div class="mascot-guide-controls" id="mascot-guide-controls" aria-label="เลือกขั้นตอนที่ต้องการเรียนรู้"></div><div class="mascot-guide-actions"><button type="button" id="mascot-show-step">ดูภาพจริงและรายละเอียด ↓</button><button type="button" class="secondary" id="mascot-next-step">ขั้นตอนถัดไป →</button></div></div></div></section>
 <section class="section" id="steps"><div class="section-head"><div><div class="eyebrow">SERVICE JOURNEY</div><h2>4 ขั้นตอนการรับบริการ</h2><p class="sub">เลือกขั้นตอนเพื่อดูรายละเอียดของการรับบริการ</p></div></div><div class="steps" id="station-grid"></div><div aria-live="polite" class="detail" id="station-detail" tabindex="-1"></div></section>
@@ -403,10 +412,15 @@ function siteApplyLanguage(){
   }
   document.documentElement.lang=SITE_LANGS[siteLanguage];
   siteLangSelect.value=siteLanguage;
+  document.querySelectorAll('.flag-button[data-language]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.language===siteLanguage)));
  }finally{siteTranslateBusy=false}
 }
 const storedSiteLanguage=(()=>{try{return localStorage.getItem('swing-language')}catch(e){return null}})();
 siteLanguage=SITE_LANG_INDEX[storedSiteLanguage]!==undefined?storedSiteLanguage:'th';
+document.querySelectorAll('.flag-button[data-language]').forEach(button=>button.addEventListener('click',()=>{
+ siteLangSelect.value=button.dataset.language;
+ siteLangSelect.dispatchEvent(new Event('change',{bubbles:true}));
+}));
 siteLangSelect.addEventListener('change',()=>{
  siteLanguage=siteLangSelect.value;
  try{localStorage.setItem('swing-language',siteLanguage)}catch(e){}
