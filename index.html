@@ -58,6 +58,18 @@
 .guide-next button:focus-visible,.guide-accordion summary:focus-visible{outline:3px solid #b60067;outline-offset:3px}
 .guide-progress{font-size:12px;color:var(--muted,#666)}
 @media(max-width:700px){.guide-next button{width:100%}.guide-accordion summary{padding:14px}}
+/* Photo descriptions and journey progress */
+.gallery-caption{margin:8px 0 10px;color:#5e5360;font-size:14px;line-height:1.6;min-height:24px}
+.journey-progress{margin-top:20px;padding:15px;border:1px solid #f2d6e4;border-radius:13px;background:#fff9fc}
+.journey-progress-heading{display:flex;justify-content:space-between;gap:12px;font-size:13px;margin-bottom:10px}
+.journey-progress-heading strong{color:#b60067}
+.journey-track{height:9px;border-radius:999px;background:#f6d9e9;overflow:hidden}
+.journey-fill{height:100%;background:#ec168c;border-radius:999px;transition:width .25s ease}
+.journey-dots{display:flex;justify-content:space-between;gap:8px;margin-top:13px}
+.journey-dot{width:35px;height:35px;border:1px solid #e6b6cf;border-radius:50%;background:white;color:#9a6c83;font-weight:700;cursor:pointer}
+.journey-dot.complete{background:#ec168c;color:#fff;border-color:#ec168c}
+.journey-dot.current{outline:3px solid #f6c7df;outline-offset:2px}
+.journey-dot:focus-visible{outline:3px solid #1e1d23;outline-offset:3px}
 </style>
 </head>
 <body>
@@ -90,15 +102,15 @@ function selectStation(id){
  const bottom=document.createElement('div');bottom.className='gallery-bottom';
  const count=document.createElement('span');count.className='gallery-count';
  const open=document.createElement('button');open.className='gallery-open';open.type='button';open.textContent='ขยายภาพ ⤢';bottom.append(count,open);
- const thumbs=document.createElement('div');thumbs.className='gallery-thumbs';
- const n=stations.indexOf(s)+1;const photos=[1,2].map(i=>'./real-step'+n+'-0'+i+'.jpg');let index=0;
+ const photoCaption=document.createElement('p');photoCaption.className='gallery-caption';photoCaption.setAttribute('aria-live','polite');const thumbs=document.createElement('div');thumbs.className='gallery-thumbs';
+ const n=stations.indexOf(s)+1;const photoCaptions=[['เจ้าหน้าที่ต้อนรับและให้ข้อมูลการลงทะเบียน ณ จุดบริการ','บรรยากาศการติดต่อและลงทะเบียนที่จุดบริการ'],['เจ้าหน้าที่พูดคุยและให้คำปรึกษาด้านสุขภาพ','เจ้าหน้าที่อธิบายข้อมูลและทางเลือกในการดูแลสุขภาพ'],['เจ้าหน้าที่เตรียมความพร้อมก่อนเก็บตัวอย่างเลือด','บุคลากรทางการแพทย์ดำเนินการเก็บตัวอย่างเลือด'],['เจ้าหน้าที่อธิบายข้อมูลสุขภาพและการดูแลหลังตรวจ','พูดคุยผลตรวจและคำแนะนำอย่างเป็นส่วนตัว']];const photos=[1,2].map(i=>'./real-step'+n+'-0'+i+'.jpg');let index=0;
  const thumbButtons=photos.map((src,i)=>{const button=document.createElement('button');button.type='button';button.className='gallery-thumb';button.setAttribute('aria-label','ดูภาพที่ '+(i+1));const pic=document.createElement('img');pic.src=src;pic.alt='ภาพย่อ '+(i+1);pic.loading='lazy';button.append(pic);button.addEventListener('click',()=>show(i));thumbs.append(button);return button});
- function show(i){index=(i+photos.length)%photos.length;img.src=photos[index];count.textContent='ภาพถ่ายจริง '+(index+1)+' / '+photos.length;thumbButtons.forEach((b,j)=>b.setAttribute('aria-pressed',String(j===index)))}
+ function show(i){index=(i+photos.length)%photos.length;img.src=photos[index];count.textContent='ภาพถ่ายจริง '+(index+1)+' / '+photos.length;photoCaption.textContent=photoCaptions[n-1][index];thumbButtons.forEach((b,j)=>b.setAttribute('aria-pressed',String(j===index)))}
  prev.addEventListener('click',()=>show(index-1));next.addEventListener('click',()=>show(index+1));
  const dialog=document.createElement('dialog');dialog.className='photo-dialog';const close=document.createElement('button');close.type='button';close.textContent='ปิด ✕';const large=document.createElement('img');large.alt='ภาพถ่ายจริงขนาดใหญ่ ขั้นตอน'+s.title;dialog.append(close,large);close.addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
  open.addEventListener('click',()=>{large.src=photos[index];if(typeof dialog.showModal==='function')dialog.showModal();else window.open(photos[index],'_blank','noopener')});img.addEventListener('click',()=>open.click());
  img.addEventListener('error',()=>{img.alt='ไม่พบไฟล์ภาพ '+photos[index]+' กรุณาตรวจสอบชื่อไฟล์บน GitHub'});
- gallery.append(stage,bottom,thumbs,dialog);show(0);
+ gallery.append(stage,bottom,photoCaption,thumbs,dialog);show(0);
  const content=document.createElement('div');content.className='detail-content';const tag=document.createElement('span');tag.className='detail-tag';tag.textContent='SERVICE STEP '+String(n).padStart(2,'0');const h=document.createElement('h3'),p=document.createElement('p');h.textContent=s.title;p.textContent=s.text;const note=document.createElement('p');note.style.marginTop='12px';note.style.fontSize='12px';note.style.color='var(--muted)';note.textContent='ภาพถ่ายจากการให้บริการจริงของ SWING พัทยา';content.append(tag,h,p,note);
  // Interactive guide: information only; no personal health data collected.
  const guides=[
@@ -114,7 +126,7 @@ function selectStation(id){
   const section=document.createElement('details');section.className='guide-accordion';if(i===0)section.open=true;
   const summary=document.createElement('summary');summary.textContent=label;const answer=document.createElement('div');answer.className='guide-answer';const list=document.createElement('ul');items.forEach(value=>{const li=document.createElement('li');li.textContent=value;list.append(li)});answer.append(list);section.append(summary,answer);wrapper.append(section)
  });
- const actions=document.createElement('div');actions.className='guide-next';const progress=document.createElement('span');progress.className='guide-progress';progress.textContent='ขั้นตอน '+n+' จาก '+stations.length;actions.append(progress);
+ const progressArea=document.createElement('div');progressArea.className='journey-progress';progressArea.setAttribute('aria-label','ความคืบหน้าการเรียนรู้ขั้นตอนบริการ');const progressHeading=document.createElement('div');progressHeading.className='journey-progress-heading';progressHeading.textContent='ความคืบหน้าการเรียนรู้';const progressValue=document.createElement('strong');progressValue.textContent=n+' / '+stations.length+' ขั้นตอน';progressHeading.append(progressValue);const track=document.createElement('div');track.className='journey-track';track.setAttribute('role','progressbar');track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax',String(stations.length));track.setAttribute('aria-valuenow',String(n));const fill=document.createElement('div');fill.className='journey-fill';fill.style.width=(n/stations.length*100)+'%';track.append(fill);const progressSteps=document.createElement('div');progressSteps.className='journey-dots';stations.forEach((item,i)=>{const dot=document.createElement('button');dot.type='button';dot.className='journey-dot'+(i+1<=n?' complete':'')+(i+1===n?' current':'');dot.textContent=String(i+1);dot.title='ไปยังขั้นตอน '+(i+1)+' '+item.title;dot.setAttribute('aria-label',dot.title);dot.setAttribute('aria-current',i+1===n?'step':'false');dot.addEventListener('click',()=>{selectStation(item.id);const u=new URL(location.href);u.searchParams.set('station',item.id);history.replaceState(null,'',u)});progressSteps.append(dot)});progressArea.append(progressHeading,track,progressSteps);wrapper.append(progressArea);const actions=document.createElement('div');actions.className='guide-next';const progress=document.createElement('span');progress.className='guide-progress';progress.textContent='ขั้นตอน '+n+' จาก '+stations.length;actions.append(progress);
  if(n<stations.length){const go=document.createElement('button');go.type='button';go.textContent='ไปขั้นตอนถัดไป →';go.addEventListener('click',()=>{const nextStation=stations[n];selectStation(nextStation.id);const u=new URL(location.href);u.searchParams.set('station',nextStation.id);history.replaceState(null,'',u);document.getElementById('station-detail').scrollIntoView({behavior:'smooth',block:'start'})});actions.append(go)}
  else {const restart=document.createElement('button');restart.type='button';restart.textContent='↺ เริ่มดูตั้งแต่ขั้นตอนแรก';restart.addEventListener('click',()=>{selectStation(stations[0].id);const u=new URL(location.href);u.searchParams.set('station',stations[0].id);history.replaceState(null,'',u);document.getElementById('station-detail').scrollIntoView({behavior:'smooth',block:'start'})});actions.append(restart)}
  wrapper.append(actions);content.append(wrapper);detail.append(gallery,content)
