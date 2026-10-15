@@ -70,12 +70,25 @@
 .journey-dot.complete{background:#ec168c;color:#fff;border-color:#ec168c}
 .journey-dot.current{outline:3px solid #f6c7df;outline-offset:2px}
 .journey-dot:focus-visible{outline:3px solid #1e1d23;outline-offset:3px}
+
+/* 3D mascot guided journey — additive enhancement */
+.mascot-guide{margin-top:14px;background:#fff;border:1px solid #f5cde1;border-radius:18px;padding:16px;box-shadow:0 8px 25px #ec168c0b}
+.mascot-guide-title{font-size:15px;font-weight:800;color:#b70a68;margin-bottom:8px}
+.mascot-speech{background:#fff3f9;border-radius:14px;padding:14px;line-height:1.75;min-height:96px;font-size:14px;color:#30212a;white-space:pre-line}
+.mascot-guide-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.mascot-guide-controls button{border:1px solid #f3b7d6;border-radius:10px;background:#fff;color:#9f0a60;padding:10px 7px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.mascot-guide-controls button[aria-pressed="true"]{background:#ec168c;color:white;border-color:#ec168c}
+.mascot-guide-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.mascot-guide-actions button{flex:1;min-width:115px;background:#ec168c;color:white;border:0;border-radius:10px;padding:11px 10px;font:inherit;font-weight:700;cursor:pointer}
+.mascot-guide-actions button.secondary{background:#fff;color:#a40b64;border:1px solid #efb4d2}
+.mascot-guide button:focus-visible{outline:3px solid #631d7b;outline-offset:2px}
+@media(max-width:640px){.mascot-guide{padding:12px}.mascot-guide-controls button{font-size:12px}}
 </style>
 </head>
 <body>
 <header class="topbar"><div class="top-inner"><a aria-label="SWING Pattaya หน้าแรก" class="brand" href="#home"><img alt="SWING official logo" src="./swing-logo.png"/><span class="brand-copy">PATTAYA<br/>AR EXPERIENCE</span></a><nav aria-label="เมนูหลัก" class="nav"><a href="#home">หน้าแรก</a><a href="#steps">ขั้นตอนบริการ</a><a href="#knowledge">ความรู้สุขภาพ</a></nav></div></header>
 <main class="container">
-<section class="hero" id="home"><div class="hero-copy"><div class="eyebrow">SWING PATTAYA · INTERACTIVE EXPERIENCE</div><h1>เรียนรู้บริการสุขภาพ<br/><span>ในรูปแบบใหม่</span></h1><p class="lead">สำรวจขั้นตอนการรับบริการของ SWING พัทยา ผ่านตัวละคร 3D และเทคโนโลยี Augmented Reality (AR) ที่ช่วยให้การเรียนรู้เป็นเรื่องง่ายและเข้าถึงได้</p><div class="hero-actions"><a class="btn primary" href="#steps">สำรวจ 4 ขั้นตอนบริการ <span aria-hidden="true">→</span></a><a class="btn secondary" href="#cat-model">ดูโมเดล 3D</a></div><p class="model-status" id="model-status" role="status">กำลังโหลดโมเดล 3D…</p></div><div class="model-panel" id="cat-model"><span class="model-label">INTERACTIVE 3D MODEL</span><model-viewer alt="น้องแมวแพทย์ SWING ในรูปแบบสามมิติ" ar="" ar-modes="webxr scene-viewer quick-look" ar-placement="floor" ar-scale="fixed" auto-rotate="" camera-controls="" environment-image="neutral" exposure="1" id="cat" loading="eager" rotation-per-second="8deg" shadow-intensity="1" src="./base_basic_shaded.glb"><button class="ar-button" slot="ar-button" type="button">เปิด AR บนมือถือ</button></model-viewer></div></section>
+<section class="hero" id="home"><div class="hero-copy"><div class="eyebrow">SWING PATTAYA · INTERACTIVE EXPERIENCE</div><h1>เรียนรู้บริการสุขภาพ<br/><span>ในรูปแบบใหม่</span></h1><p class="lead">สำรวจขั้นตอนการรับบริการของ SWING พัทยา ผ่านตัวละคร 3D และเทคโนโลยี Augmented Reality (AR) ที่ช่วยให้การเรียนรู้เป็นเรื่องง่ายและเข้าถึงได้</p><div class="hero-actions"><a class="btn primary" href="#steps">สำรวจ 4 ขั้นตอนบริการ <span aria-hidden="true">→</span></a><a class="btn secondary" href="#cat-model">ดูโมเดล 3D</a></div><p class="model-status" id="model-status" role="status">กำลังโหลดโมเดล 3D…</p></div><div class="model-panel" id="cat-model"><span class="model-label">INTERACTIVE 3D MODEL</span><model-viewer alt="น้องแมวแพทย์ SWING ในรูปแบบสามมิติ" ar="" ar-modes="webxr scene-viewer quick-look" ar-placement="floor" ar-scale="fixed" auto-rotate="" camera-controls="" environment-image="neutral" exposure="1" id="cat" loading="eager" rotation-per-second="8deg" shadow-intensity="1" src="./base_basic_shaded.glb"><button class="ar-button" slot="ar-button" type="button">เปิด AR บนมือถือ</button></model-viewer><div class="mascot-guide" id="mascot-guide" aria-label="มาสคอตแนะนำขั้นตอนบริการ"><div class="mascot-guide-title">🐱 น้องแมว SWING พาชมบริการ</div><div class="mascot-speech" id="mascot-speech" role="status" aria-live="polite">สวัสดีครับ! ยินดีต้อนรับสู่ SWING พัทยา 🩷 เลือกขั้นตอนด้านล่าง แล้วผมจะเล่าให้ฟังว่าเกิดอะไรขึ้นบ้างครับ</div><div class="mascot-guide-controls" id="mascot-guide-controls" aria-label="เลือกขั้นตอนที่ต้องการเรียนรู้"></div><div class="mascot-guide-actions"><button type="button" id="mascot-show-step">ดูภาพจริงและรายละเอียด ↓</button><button type="button" class="secondary" id="mascot-next-step">ขั้นตอนถัดไป →</button></div></div></div></section>
 <section class="section" id="steps"><div class="section-head"><div><div class="eyebrow">SERVICE JOURNEY</div><h2>4 ขั้นตอนการรับบริการ</h2><p class="sub">เลือกขั้นตอนเพื่อดูรายละเอียดของการรับบริการ</p></div></div><div class="steps" id="station-grid"></div><div aria-live="polite" class="detail" id="station-detail" tabindex="-1"></div></section>
 <section class="section" id="knowledge"><div class="eyebrow">HEALTH KNOWLEDGE</div><h2>ความรู้สุขภาพทางเพศ</h2><p class="sub" style="margin-bottom:20px">ข้อมูลพื้นฐานเพื่อช่วยให้เข้าใจการดูแลสุขภาพและการป้องกัน</p><div class="info-grid"><article class="info"><h3>HIV</h3><p>ตรวจเพื่อทราบสถานะ และรับคำแนะนำเรื่องระยะเวลาที่เหมาะสมในการตรวจจากเจ้าหน้าที่</p></article><article class="info"><h3>PrEP</h3><p>ยาป้องกัน HIV ก่อนการสัมผัสเชื้อสำหรับผู้ที่มีข้อบ่งชี้ ต้องรับการประเมินจากบุคลากรสุขภาพ</p></article><article class="info"><h3>PEP</h3><p>ยาป้องกัน HIV หลังมีความเสี่ยง ควรเริ่มโดยเร็วที่สุดและไม่เกิน 72 ชั่วโมงหลังสัมผัส</p></article><article class="info"><h3>STI</h3><p>โรคติดต่อทางเพศสัมพันธ์บางชนิดไม่มีอาการ การตรวจและรับการรักษาอย่างเหมาะสมช่วยดูแลสุขภาพได้</p></article></div><p class="notice">ข้อมูลนี้เป็นสื่อให้ความรู้ทั่วไป ไม่ใช้แทนการประเมินทางการแพทย์</p></section>
 <section aria-label="เครื่องมือจัดการลิงก์สำหรับจุดบริการ" class="qr-section"><details><summary>สำหรับเจ้าหน้าที่: ลิงก์ QR Code ประจำจุดบริการ</summary><p class="sub">สแกน QR ของแต่ละจุดเพื่อเปิดข้อมูลเฉพาะขั้นตอนนั้นได้ทันที พิมพ์ QR จากไฟล์ที่แนบในชุดดาวน์โหลด</p><div class="qr-grid" id="qr-list"></div><p class="qr-note">QR เหล่านี้เป็นลิงก์คงที่ของเว็บไซต์เดียวกัน เมื่อแก้เนื้อหาบนเว็บ QR เดิมยังใช้งานได้ ตราบใดที่ที่อยู่เว็บไซต์และชื่อขั้นตอนไม่เปลี่ยน</p></details></section>
@@ -134,5 +147,38 @@ function selectStation(id){
 stations.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.className='step';b.dataset.id=s.id;const num=document.createElement('span'),strong=document.createElement('strong'),small=document.createElement('small');num.className='step-number';num.textContent=String(i+1).padStart(2,'0');strong.textContent=s.title;small.textContent=s.short;const pic=document.createElement('img');pic.className='step-image';pic.src='./'+s.image;pic.alt='ภาพขั้นตอน'+s.title;pic.loading='lazy';b.append(pic,num,strong,small);b.addEventListener('click',()=>{selectStation(s.id);const u=new URL(location.href);u.searchParams.set('station',s.id);history.replaceState(null,'',u)});grid.appendChild(b);const item=document.createElement('div');item.className='qr-item';const heading=document.createElement('strong');heading.textContent=s.title;const url=document.createElement('a');url.href=linkFor(s.id);url.textContent=linkFor(s.id);const copy=document.createElement('button');copy.type='button';copy.className='copy';copy.textContent='คัดลอกลิงก์';copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(linkFor(s.id));copy.textContent='คัดลอกแล้ว'}catch(e){window.prompt('คัดลอกลิงก์นี้',linkFor(s.id))}});const qrImg=document.createElement('img');qrImg.className='qr-preview';qrImg.src='./qr-'+s.id+'.png';qrImg.alt='QR Code สำหรับ'+s.title;qrImg.loading='lazy';item.append(heading,qrImg,url,copy);qr.appendChild(item)});
 const initial=new URLSearchParams(location.search).get('station');selectStation(initial);if(initial&&stations.some(s=>s.id===initial)){requestAnimationFrame(()=>setTimeout(()=>document.getElementById('steps').scrollIntoView({block:'start'}),350))}
 const model=document.getElementById('cat'),status=document.getElementById('model-status');model.addEventListener('load',()=>{status.textContent='โมเดล 3D พร้อมใช้งาน';if(model.availableAnimations&&model.availableAnimations.length){model.animationName=model.availableAnimations[0];model.play()}});model.addEventListener('error',()=>{status.textContent='ไม่สามารถโหลดโมเดลได้ กรุณาตรวจสอบไฟล์ base_basic_shaded.glb'});
+
+// Mascot text guide: works independently of model animations, AR and camera permissions.
+const mascotMessages={
+ registration:'สวัสดีครับ 🐱 ขั้นตอนที่ 1 ลงทะเบียน\nเจ้าหน้าที่จะต้อนรับ สอบถามบริการที่ต้องการ และอธิบายการลงทะเบียน รวมถึงการดูแลข้อมูลส่วนบุคคลครับ',
+ counseling:'ขั้นตอนที่ 2 ให้คำปรึกษา 💬\nเราจะพูดคุยเรื่องสุขภาพและการตรวจอย่างเป็นส่วนตัว โดยไม่ตัดสิน หากมีความเสี่ยง HIV ภายใน 72 ชั่วโมง ควรแจ้งเจ้าหน้าที่ทันทีเพื่อประเมิน PEP ครับ',
+ testing:'ขั้นตอนที่ 3 เจาะเลือด 🩸\nเจ้าหน้าที่จะอธิบายการเก็บตัวอย่างก่อนดำเนินการ หากเคยเป็นลมเมื่อเจาะเลือดหรือกังวลเรื่องใด แจ้งได้เลยครับ',
+ results:'ขั้นตอนที่ 4 ฟังผลตรวจ 🩷\nเจ้าหน้าที่จะอธิบายผลเป็นการส่วนตัว ให้คำแนะนำ และประสานการตรวจยืนยันหรือส่งต่อเมื่อจำเป็นครับ'
+};
+let mascotStepIndex=0;
+const mascotSpeech=document.getElementById('mascot-speech');
+const mascotControls=document.getElementById('mascot-guide-controls');
+const mascotShow=document.getElementById('mascot-show-step');
+const mascotNext=document.getElementById('mascot-next-step');
+function setMascotStep(id){
+ const index=stations.findIndex(item=>item.id===id);
+ mascotStepIndex=index<0?0:index;
+ const current=stations[mascotStepIndex];
+ mascotSpeech.textContent=mascotMessages[current.id];
+ mascotControls.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.station===current.id)));
+ mascotNext.textContent=mascotStepIndex===stations.length-1?'↺ เริ่มต้นใหม่':'ขั้นตอนถัดไป →';
+}
+stations.forEach((item,index)=>{
+ const button=document.createElement('button');button.type='button';button.dataset.station=item.id;
+ button.textContent=(index+1)+'. '+item.title;
+ button.addEventListener('click',()=>setMascotStep(item.id));mascotControls.append(button);
+});
+mascotShow.addEventListener('click',()=>{
+ const item=stations[mascotStepIndex];selectStation(item.id);
+ const u=new URL(location.href);u.searchParams.set('station',item.id);history.replaceState(null,'',u);
+ document.getElementById('station-detail').scrollIntoView({behavior:'smooth',block:'start'});
+});
+mascotNext.addEventListener('click',()=>setMascotStep(stations[(mascotStepIndex+1)%stations.length].id));
+setMascotStep(new URLSearchParams(location.search).get('station')||stations[0].id);
 </script>
 </body></html>
