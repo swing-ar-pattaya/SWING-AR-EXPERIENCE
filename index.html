@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SWING AR EXPERIENCE V2</title>
+
+<script type="module"
+ src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.1.0/model-viewer.min.js">
+</script>
+
+<style>
+:root {
+  --pink: #EC168C;
+  --light: #fff0f8;
+  --dark: #171717;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #fff6fb;
+  color: var(--dark);
+  font-family: Arial, Tahoma, sans-serif;
+}
+header {
+  background: var(--pink);
+  color: white;
+  text-align: center;
+  padding: 30px 15px;
+}
+header h1 {
+  font-size: clamp(25px, 5vw, 40px);
+  margin: 0 0 10px;
+}
+header p { margin: 0; }
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  box-shadow: 0 2px 10px #0001;
+}
+nav a {
+  color: var(--dark);
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+}
+nav a:hover {
+  background: var(--light);
+  color: var(--pink);
+}
+main {
+  max-width: 1080px;
+  margin: auto;
+  padding: 20px 15px 60px;
+}
+section { margin-bottom: 38px; scroll-margin-top: 85px; }
+.section-title {
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.section-subtitle {
+  text-align: center;
+  color: #666;
+  line-height: 1.7;
+}
+.hero {
+  background: white;
+  border-radius: 22px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 5px 20px #00000010;
+}
+model-viewer {
+  width: 100%;
+  height: 350px;
+  background: #ffe4f1;
+  border-radius: 18px;
+}
+.ar-button {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: none;
+  border-radius: 25px;
+  background: #111;
+  color: white;
+  padding: 12px 22px;
+}
+.journey {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+.step, .station, .service {
+  background: white;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  padding: 22px 15px;
+  cursor: pointer;
+  text-align: center;
+  font-family: inherit;
+  color: inherit;
+  box-shadow: 0 4px 16px #00000010;
+  transition: .2s;
+}
+.step:hover, .station:hover, .service:hover,
+.step:focus-visible, .station:focus-visible,
+.service:focus-visible {
+  border-color: var(--pink);
+  transform: translateY(-3px);
+}
+.number {
+  display: inline-grid;
+  place-items: center;
+  background: var(--pink);
+  color: white;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.step h3, .station h3 { margin: 12px 0 8px; }
+.step p, .station p {
+  color: #666;
+  line-height: 1.6;
+  font-size: 14px;
+}
+.stations, .services {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+.station .emoji, .service .emoji {
+  font-size: 38px;
+  display: block;
+  margin-bottom: 12px;
+}
+.service { font-size: 16px; font-weight: bold; }
+.qr-note {
+  background: #ffe1f0;
+  border-left: 5px solid var(--pink);
+  border-radius: 12px;
+  padding: 18px;
+  line-height: 1.8;
+}
+dialog {
+  width: min(92%, 560px);
+  max-height: 85vh;
+  overflow-y: auto;
+  border: none;
+  border-radius: 20px;
+  padding: 26px;
+  box-shadow: 0 20px 60px #0005;
+}
+dialog::backdrop { background: #0009; }
+dialog h2 { color: var(--pink); }
+dialog p {
+  white-space: pre-line;
+  line-height: 1.85;
+}
+.close-btn {
+  background: var(--pink);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 25px;
+  cursor: pointer;
+}
+footer {
+  background: #111;
+  color: white;
+  padding: 25px;
+  text-align: center;
+}
+@media(max-width: 700px) {
+  .journey, .stations, .services {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  model-viewer { height: 300px; }
+}
+@media(max-width: 390px) {
+  .journey, .stations, .services {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🩷 SWING AR EXPERIENCE</h1>
+  <p>Explore • Learn • Experience</p>
+</header>
+
+<nav>
+  <a href="#home">🏠 หน้าแรก</a>
+  <a href="#journey">🗺️ ขั้นตอนบริการ</a>
+  <a href="#stations">📍 จุดบริการ</a>
+  <a href="#services">🩷 ความรู้สุขภาพ</a>
+</nav>
+
+<main>
+
+<section id="home" class="hero">
+  <h2>🚀 ยินดีต้อนรับสู่ SWING พัทยา</h2>
+  <p>เรียนรู้บริการสุขภาพทางเพศผ่านเทคโนโลยี 3D</p>
+
+  <model-viewer
+    src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+    alt="นักบินอวกาศ 3D"
+    camera-controls
+    auto-rotate
+    shadow-intensity="1"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    ar-placement="floor">
+    <button slot="ar-button" class="ar-button">
+      📱 เปิด AR
+    </button>
+  </model-viewer>
+
+  <p>ใช้เมาส์หมุนโมเดล 3D ได้</p>
+</section>
+
+<section id="journey">
+  <h2 class="section-title">🗺️ SWING Service Journey</h2>
+  <p class="section-subtitle">
+    เรียนรู้ขั้นตอนการรับบริการตั้งแต่ต้นจนจบ
+  </p>
+  <div class="journey" id="journeyGrid"></div>
+</section>
+
+<section id="stations">
+  <h2 class="section-title">📍 จุดบริการภายในคลินิก</h2>
+  <p class="section-subtitle">
+    เลือกจุดบริการเพื่อดูรายละเอียด
+  </p>
+  <div class="stations" id="stationGrid"></div>
+</section>
+
+<section id="services">
+  <h2 class="section-title">🩷 บริการและความรู้สุขภาพ</h2>
+  <p class="section-subtitle">
+    คลิกเพื่อเรียนรู้ข้อมูลสุขภาพทางเพศ
+  </p>
+  <div class="services" id="serviceGrid"></div>
+</section>
+
+<section>
+  <div class="qr-note">
+    <strong>📱 QR Code Service Stations</strong>
+    <p>
+      ในขั้นตอนต่อไป เราจะสร้าง QR Code
+      สำหรับแต่ละจุดบริการ เมื่อสแกนแล้ว
+      เว็บไซต์จะเปิดข้อมูลของจุดนั้นโดยตรง
+    </p>
+  </div>
+</section>
+
+</main>
+
+<dialog id="infoDialog">
+  <h2 id="dialogTitle"></h2>
+  <p id="dialogText"></p>
+  <button class="close-btn" id="closeDialog">
+    ปิดหน้าต่าง
+  </button>
+</dialog>
+
+<footer>
+  SWING Pattaya • SWING AR EXPERIENCE
+</footer>
+
+<script>
+const journey = [
+  {
+    title: "ต้อนรับ",
+    text: "เจ้าหน้าที่ต้อนรับผู้รับบริการและแนะนำบริการ"
+  },
+  {
+    title: "ลงทะเบียน",
+    text: "ลงทะเบียนตามขั้นตอนของคลินิก โดยรักษาความลับของข้อมูล"
+  },
+  {
+    title: "ให้คำปรึกษา",
+    text: "พูดคุย ประเมินความเสี่ยง และเลือกบริการที่เหมาะสม"
+  },
+  {
+    title: "ตรวจสุขภาพ",
+    text: "เข้ารับการตรวจตามรายการที่เลือกและคำแนะนำของเจ้าหน้าที่"
+  },
+  {
+    title: "รับผลตรวจ",
+    text: "รับทราบผลตรวจเป็นการส่วนตัว พร้อมคำแนะนำที่เหมาะสม"
+  },
+  {
+    title: "ติดตามบริการ",
+    text: "รับคำแนะนำ นัดหมาย หรือส่งต่อบริการตามความจำเป็น"
+  }
+];
+
+const stations = [
+  {
+    id: "reception",
+    icon: "👋",
+    title: "จุดต้อนรับ",
+    text: "ติดต่อเจ้าหน้าที่เพื่อสอบถามและเริ่มรับบริการ"
+  },
+  {
+    id: "registration",
+    icon: "📝",
+    title: "จุดลงทะเบียน",
+    text: "ลงทะเบียนรับบริการตามระบบของคลินิก"
+  },
+  {
+    id: "counseling",
+    icon: "💬",
+    title: "จุดให้คำปรึกษา",
+    text: "รับคำปรึกษาเรื่อง HIV, STI, PrEP และ PEP"
+  },
+  {
+    id: "testing",
+    icon: "🧪",
+    title: "จุดตรวจ",
+    text: "ตรวจสุขภาพตามบริการที่เลือก โดยเจ้าหน้าที่ที่เกี่ยวข้อง"
+  },
+  {
+    id: "results",
+    icon: "📋",
+    title: "จุดรับผล",
+    text: "รับผลตรวจอย่างเป็นส่วนตัวและรับคำแนะนำ"
+  },
+  {
+    id: "followup",
+    icon: "🤝",
+    title: "จุดติดตามบริการ",
+    text: "รับคำแนะนำเรื่องการติดตามผล นัดหมาย หรือส่งต่อ"
+  }
+];
+
+const services = [
+  {
+    icon: "🩸",
+    title: "ตรวจ HIV",
+    text: "การตรวจ HIV ช่วยให้ทราบสถานะการติดเชื้อ\n\nช่วงเวลาที่เหมาะสมในการตรวจขึ้นอยู่กับชนิดชุดตรวจและระยะเวลาหลังสัมผัสความเสี่ยง"
+  },
+  {
+    icon: "🛡️",
+    title: "PrEP / PEP",
+    text: "PrEP คือยาป้องกัน HIV ก่อนสัมผัสความเสี่ยง\n\nPEP คือยาป้องกันหลังสัมผัสความเสี่ยง ควรเริ่มโดยเร็วที่สุดภายใน 72 ชั่วโมง และใช้ต่อเนื่อง 28 วันภายใต้การดูแลของบุคลากรทางการแพทย์"
+  },
+  {
+    icon: "📦",
+    title: "HIV Self-Test",
+    text: "ชุดตรวจ HIV ด้วยตนเองช่วยให้ตรวจคัดกรองเบื้องต้นได้อย่างเป็นส่วนตัว\n\nหากผลเป็นบวกเบื้องต้น ต้องเข้ารับการตรวจยืนยัน"
+  },
+  {
+    icon: "📚",
+    title: "ความรู้ STI",
+    text: "โรคติดต่อทางเพศสัมพันธ์ เช่น ซิฟิลิส หนองใน หนองในเทียม และไวรัสตับอักเสบบี\n\nบางโรคอาจไม่มีอาการ จึงควรตรวจตามความเสี่ยง"
+  },
+  {
+    icon: "🧴",
+    title: "การใช้ถุงยาง",
+    text: "ตรวจวันหมดอายุและสภาพซอง\n\nเปิดซองอย่างระมัดระวัง บีบปลายถุงยางและรูดลงจนสุดโคนอวัยวะเพศที่แข็งตัว\n\nใช้ถุงยางใหม่ทุกครั้ง และใช้สารหล่อลื่นที่เหมาะสม"
+  },
+  {
+    icon: "🧑‍⚕️",
+    title: "ปรึกษาเจ้าหน้าที่",
+    text: "สอบถามเจ้าหน้าที่ SWING เพื่อรับคำปรึกษาเรื่องสุขภาพทางเพศ การตรวจ การป้องกัน และการเข้าถึงบริการ"
+  }
+];
+
+const dialog = document.getElementById("infoDialog");
+const dialogTitle = document.getElementById("dialogTitle");
+const dialogText = document.getElementById("dialogText");
+
+function showInfo(title, text) {
+  dialogTitle.textContent = title;
+  dialogText.textContent = text;
+  dialog.showModal();
+}
+
+document.getElementById("closeDialog").onclick = () => {
+  dialog.close();
+};
+
+journey.forEach((item, index) => {
+  const button = document.createElement("button");
+  button.className = "step";
+
+  button.innerHTML =
+    '<span class="number">' + (index + 1) + '</span>' +
+    '<h3>' + item.title + '</h3>' +
+    '<p>' + item.text + '</p>';
+
+  button.onclick = () => showInfo(
+    "ขั้นตอนที่ " + (index + 1) + ": " + item.title,
+    item.text
+  );
+
+  document.getElementById("journeyGrid").appendChild(button);
+});
+
+stations.forEach(item => {
+  const button = document.createElement("button");
+  button.className = "station";
+
+  button.innerHTML =
+    '<span class="emoji">' + item.icon + '</span>' +
+    '<h3>' + item.title + '</h3>' +
+    '<p>' + item.text + '</p>';
+
+  button.onclick = () => showInfo(item.title, item.text);
+
+  document.getElementById("stationGrid").appendChild(button);
+});
+
+services.forEach(item => {
+  const button = document.createElement("button");
+  button.className = "service";
+
+  button.innerHTML =
+    '<span class="emoji">' + item.icon + '</span>' +
+    item.title;
+
+  button.onclick = () => showInfo(item.title, item.text);
+
+  document.getElementById("serviceGrid").appendChild(button);
+});
+
+// รองรับลิงก์ตรงไปยังจุดบริการ
+// ตัวอย่าง: index.html?station=testing
+const params = new URLSearchParams(window.location.search);
+const stationId = params.get("station");
+
+if (stationId) {
+  const selected = stations.find(item => item.id === stationId);
+
+  if (selected) {
+    document.getElementById("stations").scrollIntoView();
+
+    showInfo(selected.title, selected.text);
+  }
+}
+</script>
+
+</body>
+</html>
