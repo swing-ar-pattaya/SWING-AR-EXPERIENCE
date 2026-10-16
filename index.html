@@ -347,8 +347,8 @@ function selectStation(id){
  wrapper.append(actions);content.append(wrapper);detail.append(gallery,content)
 }
 stations.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.className='step';b.dataset.id=s.id;const num=document.createElement('span'),strong=document.createElement('strong'),small=document.createElement('small');num.className='step-number';num.textContent=String(i+1).padStart(2,'0');strong.textContent=s.title;small.textContent=s.short;const pic=document.createElement('img');pic.className='step-image';pic.src='./'+s.image;pic.alt='ภาพขั้นตอน'+s.title;pic.loading='lazy';b.append(pic,num,strong,small);b.addEventListener('click',()=>{selectStation(s.id);const u=new URL(location.href);u.searchParams.set('station',s.id);history.replaceState(null,'',u)});grid.appendChild(b);const item=document.createElement('div');item.className='qr-item';const heading=document.createElement('strong');heading.textContent=s.title;const url=document.createElement('a');url.href=linkFor(s.id);url.textContent=linkFor(s.id);const copy=document.createElement('button');copy.type='button';copy.className='copy';copy.textContent='คัดลอกลิงก์';copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(linkFor(s.id));copy.textContent='คัดลอกแล้ว'}catch(e){window.prompt('คัดลอกลิงก์นี้',linkFor(s.id))}});const qrImg=document.createElement('img');qrImg.className='qr-preview';qrImg.src='./qr-'+s.id+'.png';qrImg.alt='QR Code สำหรับ'+s.title;qrImg.loading='lazy';item.append(heading,qrImg,url,copy);qr.appendChild(item)});
-const initial=new URLSearchParams(location.search).get('station');selectStation(initial);if(initial&&stations.some(s=>s.id===initial)){requestAnimationFrame(()=>setTimeout(()=>document.getElementById('steps').scrollIntoView({block:'start'}),350))}
-const model=document.getElementById('cat'),status=document.getElementById('model-status');model.addEventListener('load',()=>{status.textContent='โมเดล 3D พร้อมใช้งาน';if(model.availableAnimations&&model.availableAnimations.length){model.animationName=model.availableAnimations[0];model.play()}});model.addEventListener('error',()=>{status.textContent='ไม่สามารถโหลดโมเดลได้ กรุณาตรวจสอบไฟล์ base_basic_shaded.glb'});
+const incomingStation=new URLSearchParams(location.search).get('station');const initial=incomingStation==='blood'?'testing':incomingStation;selectStation(initial);if(initial&&stations.some(s=>s.id===initial)){requestAnimationFrame(()=>setTimeout(()=>document.getElementById('steps').scrollIntoView({block:'start'}),350))}
+const model=document.getElementById('cat'),status=document.getElementById('model-status');model.addEventListener('load',()=>{status.textContent='โมเดล 3D พร้อมใช้งาน';if(model.availableAnimations&&model.availableAnimations.length){model.animationName=model.availableAnimations[0];model.play()}});model.addEventListener('error',()=>{status.textContent='ไม่สามารถโหลดโมเดลได้ กรุณาตรวจสอบไฟล์ happy_lucky_ar_ready.glb'});
 
 // Mascot text guide: works independently of model animations, AR and camera permissions.
 const mascotMessages={
@@ -384,18 +384,19 @@ function speakMascot(fromTap=false, spokenText=null){
  const token=++mascotSpeechToken;
  // Keep medical abbreviations visible on screen; expand them only for speech.
  const text=(spokenText===null?mascotSpeech.textContent:spokenText).trim().replace(/\n/g,' ')
-  .replace(/PrEP/gi,'เพร็พ')
-  .replace(/HIV/gi,'เอช ไอ วี')
-  .replace(/PEP\s*\(เป๊บ\)|PEP/gi,'เป๊บ')
-  .replace(/STI(s)?/gi,'เอส ที ไอ');
+  .replace(/PrEP/gi,siteLanguage==='th'?'เพร็พ':'PrEP')
+  .replace(/HIV/gi,siteLanguage==='th'?'เอช ไอ วี':'HIV')
+  .replace(/PEP\s*\(เป๊บ\)|PEP/gi,siteLanguage==='th'?'เป๊บ':'PEP')
+  .replace(/STI(s)?/gi,siteLanguage==='th'?'เอส ที ไอ':'STI');
  const utterance=new SpeechSynthesisUtterance(text);
  mascotUtterance=utterance; // Keep a strong reference for mobile Safari.
  utterance.lang=(typeof siteLanguage!=='undefined'?SITE_LANGS[siteLanguage]:'th-TH');
  utterance.rate=0.96;
  utterance.pitch=1.12; // Friendly youthful tone, without overly cartoonish pitch; varies by device.
  utterance.volume=1;
- const voice=(typeof siteLanguage!=='undefined' && siteLanguage!=='th') ? mascotSynth.getVoices().find(v=>v.lang.toLowerCase().startsWith((siteLanguage==='my'?'my':siteLanguage)+'-')) : chooseThaiVoice();
+ const voice=(typeof siteLanguage!=='undefined' && siteLanguage!=='th') ? mascotSynth.getVoices().find(v=>v.lang.toLowerCase().replace('_','-').startsWith((siteLanguage==='km'?'km':siteLanguage)+'-')) : chooseThaiVoice();
  if(voice)utterance.voice=voice;
+  else if(siteLanguage==='km'||siteLanguage==='my')mascotVoiceStatus.textContent='อุปกรณ์นี้อาจไม่มีเสียงภาษาที่เลือก / Voice may be unavailable';
  utterance.onstart=()=>{if(token===mascotSpeechToken)mascotVoiceStatus.textContent='แฮปปี้ลัคกี้กำลังพูด…'};
  utterance.onend=()=>{if(token===mascotSpeechToken){mascotVoiceStatus.textContent='ฟังจบแล้ว • แตะฟังอีกครั้งได้';mascotUtterance=null}};
  utterance.onerror=(event)=>{if(token===mascotSpeechToken){mascotVoiceStatus.textContent='เล่นเสียงไม่ได้ ('+(event.error||'ไม่ทราบสาเหตุ')+') • ลองแตะฟังอีกครั้ง';mascotUtterance=null}};
@@ -442,7 +443,7 @@ function setMascotStep(id){
  const index=stations.findIndex(item=>item.id===id);
  mascotStepIndex=index<0?0:index;
  const current=stations[mascotStepIndex];
- mascotSpeech.textContent=mascotMessages[current.id];
+ mascotSpeech.textContent=siteTranslateText(mascotMessages[current.id],siteLanguage);
  if(mascotVoiceEnabled){stopMascotVoice();mascotVoiceStatus.textContent="เปลี่ยนขั้นตอนแล้ว • แตะฟังอีกครั้ง";}
  mascotControls.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.station===current.id)));
  mascotNext.textContent=mascotStepIndex===stations.length-1?'↺ เริ่มต้นใหม่':'ขั้นตอนถัดไป →';
@@ -458,7 +459,7 @@ mascotShow.addEventListener('click',()=>{
  document.getElementById('station-detail').scrollIntoView({behavior:'smooth',block:'start'});
 });
 mascotNext.addEventListener('click',()=>setMascotStep(stations[(mascotStepIndex+1)%stations.length].id));
-setMascotStep(new URLSearchParams(location.search).get('station')||stations[0].id);
+// Initial mascot selection is deferred until the language dictionary is ready.
 
 // Site-wide, tap-to-listen narration. No autoplay; never reads private input fields.
 const globalVoiceBar=document.getElementById('global-voice-bar');
@@ -587,6 +588,7 @@ siteLangSelect.addEventListener('change',()=>{
 const siteTranslationObserver=new MutationObserver(()=>{if(!siteTranslateBusy)siteApplyLanguage()});
 siteTranslationObserver.observe(document.body,{childList:true,subtree:true,characterData:true});
 siteApplyLanguage();
+setMascotStep(initial||stations[0].id);
 
 </script>
 
@@ -595,7 +597,7 @@ siteApplyLanguage();
 (function(){
  const speech=document.getElementById('mascot-speech');
  const btn=document.getElementById('mascot-expand');
- const picker=document.getElementById('language-select');
+ const picker=document.getElementById('site-language');
  if(!speech||!btn)return;
  const labels={th:['อ่านคำบรรยายทั้งหมด ↓','ย่อคำบรรยาย ↑'],en:['Read full narration ↓','Show less ↑'],km:['អានអត្ថបទទាំងមូល ↓','បង្ហាញតិច ↑'],my:['စာသားအပြည့်အစုံဖတ်ရန် ↓','လျှော့ပြရန် ↑']};
  function update(){
