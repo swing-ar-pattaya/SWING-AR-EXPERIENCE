@@ -310,7 +310,7 @@ function selectStation(id){
  detail.replaceChildren();
  const gallery=document.createElement('div');gallery.className='real-gallery';
  const stage=document.createElement('div');stage.className='gallery-stage';
- const img=document.createElement('img');img.className='gallery-photo';img.alt='ภาพถ่ายจริงขั้นตอน'+s.title;img.loading='lazy';
+ const img=document.createElement('img');img.className='gallery-photo';img.alt='ภาพขั้นตอน'+s.title;img.loading='lazy';
  const prev=document.createElement('button'),next=document.createElement('button');
  prev.type=next.type='button';prev.className='gallery-nav gallery-prev';next.className='gallery-nav gallery-next';prev.textContent='‹';next.textContent='›';prev.setAttribute('aria-label','ภาพก่อนหน้า');next.setAttribute('aria-label','ภาพถัดไป');
  stage.append(img,prev,next);
@@ -324,9 +324,9 @@ function selectStation(id){
  prev.addEventListener('click',()=>show(index-1));next.addEventListener('click',()=>show(index+1));
  const dialog=document.createElement('dialog');dialog.className='photo-dialog';const close=document.createElement('button');close.type='button';close.textContent='ปิด ✕';const large=document.createElement('img');large.alt='ภาพถ่ายจริงขนาดใหญ่ ขั้นตอน'+s.title;dialog.append(close,large);close.addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
  open.addEventListener('click',()=>{large.src=photos[index];if(typeof dialog.showModal==='function')dialog.showModal();else window.open(photos[index],'_blank','noopener')});img.addEventListener('click',()=>open.click());
- img.addEventListener('error',()=>{img.alt='ไม่พบไฟล์ภาพ '+photos[index]+' กรุณาตรวจสอบชื่อไฟล์บน GitHub'});
+ img.addEventListener('error',()=>{img.onerror=null;img.src='./'+s.image;img.alt='ภาพประกอบขั้นตอน'+s.title;photoCaption.textContent='ภาพประกอบขั้นตอนบริการ (สามารถเพิ่มภาพถ่ายจริงในภายหลังได้)';});
  gallery.append(stage,bottom,photoCaption,thumbs,dialog);show(0);
- const content=document.createElement('div');content.className='detail-content';const tag=document.createElement('span');tag.className='detail-tag';tag.textContent='SERVICE STEP '+String(n).padStart(2,'0');const h=document.createElement('h3'),p=document.createElement('p');h.textContent=s.title;p.textContent=s.text;const note=document.createElement('p');note.style.marginTop='12px';note.style.fontSize='12px';note.style.color='var(--muted)';note.textContent='ภาพถ่ายจากการให้บริการจริงของ SWING พัทยา';content.append(tag,h,p,note);
+ const content=document.createElement('div');content.className='detail-content';const tag=document.createElement('span');tag.className='detail-tag';tag.textContent='SERVICE STEP '+String(n).padStart(2,'0');const h=document.createElement('h3'),p=document.createElement('p');h.textContent=s.title;p.textContent=s.text;const note=document.createElement('p');note.style.marginTop='12px';note.style.fontSize='12px';note.style.color='var(--muted)';note.textContent='ภาพประกอบขั้นตอนบริการของ SWING พัทยา';content.append(tag,h,p,note);
  // Interactive guide: information only; no personal health data collected.
  const guides=[
   {staff:['ต้อนรับและสอบถามความประสงค์ในการรับบริการ','แนะนำรายการบริการและอธิบายขั้นตอนการลงทะเบียน','ชี้แจงการดูแลข้อมูลส่วนบุคคลและส่งต่อไปยังจุดให้คำปรึกษา'],visitor:['แจ้งบริการที่ต้องการและให้ข้อมูลที่จำเป็นตามจริง','สอบถามเรื่องสิทธิบริการ ค่าใช้จ่าย หรือความเป็นส่วนตัวได้'],prep:['เตรียมข้อมูลที่จำเป็นต่อการลงทะเบียนตามที่เจ้าหน้าที่แจ้ง','ไม่จำเป็นต้องเปิดเผยข้อมูลสุขภาพต่อบุคคลอื่นในพื้นที่รอรับบริการ'],know:['การใช้เอกสารหรือข้อมูลระบุตัวตนขึ้นอยู่กับเงื่อนไขของบริการ','ระยะเวลารอคิวขึ้นอยู่กับจำนวนผู้รับบริการในวันนั้น']},
@@ -346,7 +346,7 @@ function selectStation(id){
  else {const restart=document.createElement('button');restart.type='button';restart.textContent='↺ เริ่มดูตั้งแต่ขั้นตอนแรก';restart.addEventListener('click',()=>{selectStation(stations[0].id);const u=new URL(location.href);u.searchParams.set('station',stations[0].id);history.replaceState(null,'',u);document.getElementById('station-detail').scrollIntoView({behavior:'smooth',block:'start'})});actions.append(restart)}
  wrapper.append(actions);content.append(wrapper);detail.append(gallery,content)
 }
-stations.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.className='step';b.dataset.id=s.id;const num=document.createElement('span'),strong=document.createElement('strong'),small=document.createElement('small');num.className='step-number';num.textContent=String(i+1).padStart(2,'0');strong.textContent=s.title;small.textContent=s.short;const pic=document.createElement('img');pic.className='step-image';pic.src='./'+s.image;pic.alt='ภาพขั้นตอน'+s.title;pic.loading='lazy';b.append(pic,num,strong,small);b.addEventListener('click',()=>{selectStation(s.id);const u=new URL(location.href);u.searchParams.set('station',s.id);history.replaceState(null,'',u)});grid.appendChild(b);const item=document.createElement('div');item.className='qr-item';const heading=document.createElement('strong');heading.textContent=s.title;const url=document.createElement('a');url.href=linkFor(s.id);url.textContent=linkFor(s.id);const copy=document.createElement('button');copy.type='button';copy.className='copy';copy.textContent='คัดลอกลิงก์';copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(linkFor(s.id));copy.textContent='คัดลอกแล้ว'}catch(e){window.prompt('คัดลอกลิงก์นี้',linkFor(s.id))}});const qrImg=document.createElement('img');qrImg.className='qr-preview';qrImg.src='./qr-'+s.id+'.png';qrImg.alt='QR Code สำหรับ'+s.title;qrImg.loading='lazy';item.append(heading,qrImg,url,copy);qr.appendChild(item)});
+stations.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.className='step';b.dataset.id=s.id;const num=document.createElement('span'),strong=document.createElement('strong'),small=document.createElement('small');num.className='step-number';num.textContent=String(i+1).padStart(2,'0');strong.textContent=s.title;small.textContent=s.short;const pic=document.createElement('img');pic.className='step-image';pic.src='./'+s.image;pic.alt='ภาพขั้นตอน'+s.title;pic.loading='lazy';b.append(pic,num,strong,small);b.addEventListener('click',()=>{selectStation(s.id);const u=new URL(location.href);u.searchParams.set('station',s.id);history.replaceState(null,'',u)});grid.appendChild(b);const item=document.createElement('div');item.className='qr-item';const heading=document.createElement('strong');heading.textContent=s.title;const url=document.createElement('a');url.href=linkFor(s.id==='testing'?'blood':s.id);url.textContent=linkFor(s.id==='testing'?'blood':s.id);const copy=document.createElement('button');copy.type='button';copy.className='copy';copy.textContent='คัดลอกลิงก์';copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(linkFor(s.id==='testing'?'blood':s.id));copy.textContent='คัดลอกแล้ว'}catch(e){window.prompt('คัดลอกลิงก์นี้',linkFor(s.id))}});const qrImg=document.createElement('img');qrImg.className='qr-preview';qrImg.src='./qr-'+(s.id==='testing'?'blood':s.id)+'.png';qrImg.alt='QR Code สำหรับ'+s.title;qrImg.loading='lazy';item.append(heading,qrImg,url,copy);qr.appendChild(item)});
 const incomingStation=new URLSearchParams(location.search).get('station');const initial=incomingStation==='blood'?'testing':incomingStation;selectStation(initial);if(initial&&stations.some(s=>s.id===initial)){requestAnimationFrame(()=>setTimeout(()=>document.getElementById('steps').scrollIntoView({block:'start'}),350))}
 const model=document.getElementById('cat'),status=document.getElementById('model-status');model.addEventListener('load',()=>{status.textContent='โมเดล 3D พร้อมใช้งาน';if(model.availableAnimations&&model.availableAnimations.length){model.animationName=model.availableAnimations[0];model.play()}});model.addEventListener('error',()=>{status.textContent='ไม่สามารถโหลดโมเดลได้ กรุณาตรวจสอบไฟล์ happy_lucky_ar_ready.glb'});
 
@@ -395,7 +395,7 @@ function speakMascot(fromTap=false, spokenText=null){
  if(!mascotSynth||!mascotVoiceEnabled)return;
  const lang=typeof siteLanguage==='string'?siteLanguage:'th';
  const voice=findVoiceForLanguage(lang);
- if(!voice){
+ if(!voice && (lang==='km'||lang==='my')){
   mascotVoiceStatus.textContent=voiceAvailabilityMessage();
   mascotVoiceEnabled=false;
   mascotVoiceToggle.setAttribute('aria-pressed','false');
@@ -417,15 +417,15 @@ function speakMascot(fromTap=false, spokenText=null){
  if(wasActive)mascotSynth.cancel();
  const utterance=new SpeechSynthesisUtterance(text);
  mascotUtterance=utterance;
- utterance.lang=voice.lang;
- utterance.voice=voice;
+ utterance.lang=voice?voice.lang:SITE_LANGS[lang];
+ if(voice)utterance.voice=voice;
  utterance.rate=.92;
  utterance.pitch=1.02;
  utterance.volume=1;
- utterance.onstart=()=>{if(token===mascotSpeechToken)mascotVoiceStatus.textContent='กำลังอ่าน ('+voice.lang+')…'};
+ utterance.onstart=()=>{if(token===mascotSpeechToken)mascotVoiceStatus.textContent='กำลังอ่าน ('+utterance.lang+')…'};
  utterance.onend=()=>{if(token===mascotSpeechToken){mascotVoiceStatus.textContent='ฟังจบแล้ว · แตะเพื่อฟังอีกครั้ง';mascotUtterance=null;hideGlobalVoice()}};
  utterance.onerror=e=>{if(token===mascotSpeechToken){mascotVoiceStatus.textContent='เสียงไม่ทำงาน ('+(e.error||'unknown')+') · ตรวจสอบ Android Text-to-speech และระดับเสียงสื่อ';mascotUtterance=null;hideGlobalVoice()}};
- mascotVoiceStatus.textContent='กำลังเตรียมเสียง ('+voice.lang+')…';
+ mascotVoiceStatus.textContent='กำลังเตรียมเสียง ('+utterance.lang+')…';
  const play=()=>{
   if(token!==mascotSpeechToken||!mascotVoiceEnabled)return;
   try{if(mascotSynth.paused)mascotSynth.resume();mascotSynth.speak(utterance)}
@@ -593,6 +593,7 @@ function swingLocalizeGuide(){
 }
 
 Object.assign(SITE_I18N,{"👩‍⚕️ เจ้าหน้าที่ทำอะไรบ้าง?": ["👩‍⚕️ What do staff do?", "👩‍⚕️ បុគ្គលិកធ្វើអ្វីខ្លះ?", "👩‍⚕️ ဝန်ထမ်းများ ဘာလုပ်ပေးသလဲ?"], "🙋 ผู้รับบริการต้องทำอะไร?": ["🙋 What should you do?", "🙋 អ្នកត្រូវធ្វើអ្វី?", "🙋 သင် ဘာလုပ်ရမလဲ?"], "📝 ต้องเตรียมตัวอย่างไร?": ["📝 How to prepare?", "📝 ត្រូវត្រៀមអ្វីខ្លះ?", "📝 ဘယ်လိုပြင်ဆင်ရမလဲ?"], "💡 สิ่งที่ควรรู้": ["💡 Good to know", "💡 អ្វីដែលគួរដឹង", "💡 သိထားသင့်သည်များ"], "ความคืบหน้าการเรียนรู้": ["Learning progress", "វឌ្ឍនភាពនៃការរៀន", "လေ့လာမှုတိုးတက်မှု"], "↺ เริ่มดูตั้งแต่ขั้นตอนแรก": ["↺ Back to first step", "↺ ត្រឡប់ទៅដំណាក់កាលដំបូង", "↺ ပထမအဆင့်သို့ ပြန်သွားရန်"], "ภาพถ่ายจากการให้บริการจริงของ SWING พัทยา": ["Photos from SWING Pattaya services", "រូបថតពីសេវាកម្ម SWING Pattaya", "SWING Pattaya ဝန်ဆောင်မှုမှ ဓာတ်ပုံများ"], "ภาพก่อนหน้า": ["Previous photo", "រូបមុន", "ယခင်ပုံ"], "ภาพถัดไป": ["Next photo", "រូបបន្ទាប់", "နောက်ပုံ"], "ขยายภาพ ⤢": ["Enlarge photo ⤢", "ពង្រីករូបភាព ⤢", "ပုံချဲ့ရန် ⤢"], "ปิด ✕": ["Close ✕", "បិទ ✕", "ပိတ်ရန် ✕"], "คัดลอกลิงก์": ["Copy link", "ចម្លងតំណ", "လင့်ခ်ကူးရန်"], "คัดลอกแล้ว": ["Copied", "បានចម្លង", "ကူးပြီး"], "🔊 ฟังรายละเอียดทั้งหมด": ["🔊 Listen to full details", "🔊 ស្តាប់ព័ត៌មានលម្អិតទាំងអស់", "🔊 အသေးစိတ်အားလုံး နားထောင်ရန်"], "ข้อมูลเพื่อการเรียนรู้ทั่วไป ไม่ใช้แทนคำแนะนำจากบุคลากรสุขภาพ ·": ["General education only, not a substitute for medical advice ·", "សម្រាប់ការអប់រំទូទៅ មិនជំនួសដំបូន្មានវេជ្ជសាស្ត្រទេ ·", "အထွေထွေ ပညာပေးအတွက်သာဖြစ်ပြီး ဆေးဘက်ဆိုင်ရာအကြံဉာဏ်အစား မဟုတ်ပါ ·"], "🐱 เล่นกับแฮปปี้ลัคกี้ในโลกจริง": ["🐱 Meet Happy Lucky in AR", "🐱 ជួប Happy Lucky ក្នុង AR", "🐱 AR တွင် Happy Lucky နှင့်တွေ့ပါ"], "AR · ปรับขนาดได้": ["AR · Resizable", "AR · អាចប្ដូរទំហំ", "AR · အရွယ်အစားပြောင်းနိုင်"], "ฟังจบแล้ว • แตะฟังอีกครั้งได้": ["Finished • Tap to replay", "ចប់ហើយ • ចុចស្តាប់ម្ដងទៀត", "ပြီးပါပြီ • ပြန်နားထောင်ရန် နှိပ်ပါ"], "หยุดเสียงแล้ว": ["Audio stopped", "បានបញ្ឈប់សំឡេង", "အသံရပ်ပြီး"], "ปิดเสียงแล้ว": ["Voice off", "បានបិទសំឡេង", "အသံပိတ်ပြီး"], "กำลังเริ่มเสียง…": ["Starting audio…", "កំពុងចាប់ផ្តើមសំឡេង…", "အသံစတင်နေသည်…"], "แฮปปี้ลัคกี้กำลังพูด…": ["Happy Lucky is speaking…", "Happy Lucky កំពុងនិយាយ…", "Happy Lucky ပြောနေသည်…"]});
+Object.assign(SITE_I18N,{"กำลังโหลดโมเดล 3D…": ["Loading 3D model…", "កំពុងផ្ទុកម៉ូដែល 3D…", "3D မော်ဒယ်ဖွင့်နေသည်…"], "สวัสดีครับ! ผมแฮปปี้ลัคกี้ ผู้ช่วยแนะนำบริการของ SWING พัทยาครับ เลือกขั้นตอนด้านล่าง แล้วผมจะเล่าให้ฟังว่าเกิดอะไรขึ้นบ้างครับ": ["Hello! I’m Happy Lucky, your SWING Pattaya guide. Choose a step below and I’ll explain what happens.", "សួស្តី! ខ្ញុំឈ្មោះ Happy Lucky ជាអ្នកណែនាំនៅ SWING ប៉ាតាយ៉ា។ សូមជ្រើសរើសដំណាក់កាលខាងក្រោម។", "မင်္ဂလာပါ! ကျွန်တော် Happy Lucky ပါ။ SWING Pattaya ဝန်ဆောင်မှုအဆင့်တစ်ခုကို ရွေးပါ၊ ရှင်းပြပေးပါမယ်။"], "ตรวจสอบเสียงในอุปกรณ์ / Check voices": ["Check device voices", "ពិនិត្យសំឡេងក្នុងឧបករណ៍", "စက်တွင်အသံစစ်ရန်"], "QR เหล่านี้เป็นลิงก์คงที่ของเว็บไซต์เดียวกัน เมื่อแก้เนื้อหาบนเว็บ QR เดิมยังใช้งานได้ ตราบใดที่ที่อยู่เว็บไซต์และชื่อขั้นตอนไม่เปลี่ยน": ["These QR codes link to this website. They will keep working as long as the site address and station identifiers stay the same.", "QR ទាំងនេះភ្ជាប់ទៅគេហទំព័រនេះ ហើយបន្តដំណើរការបើអាសយដ្ឋាន និងលេខសម្គាល់ដំណាក់កាលមិនផ្លាស់ប្តូរ។", "ဤ QR ကုဒ်များသည် ဤဝဘ်ဆိုက်သို့ ချိတ်ဆက်ထားပြီး လိပ်စာနှင့် အဆင့်အမှတ်အသား မပြောင်းလဲသရွေ့ ဆက်လက်အသုံးပြုနိုင်သည်။"], "คัดลอกลิงก์": ["Copy link", "ចម្លងតំណ", "လင့်ခ်ကူးရန်"], "คัดลอกแล้ว": ["Copied", "បានចម្លង", "ကူးပြီးပါပြီ"], "ภาพถ่ายจากการให้บริการจริงของ SWING พัทยา": ["SWING Pattaya service journey", "ដំណាក់កាលសេវានៅ SWING ប៉ាតាយ៉ា", "SWING Pattaya ဝန်ဆောင်မှုအဆင့်များ"], "ภาพถ่ายจริง": ["Service photo", "រូបថតសេវា", "ဝန်ဆောင်မှုဓာတ်ပုံ"], "เรียนรู้ขั้นตอนนี้": ["Explore this step", "ស្វែងយល់ពីដំណាក់កាលនេះ", "ဤအဆင့်ကို လေ့လာပါ"], "ความคืบหน้าการเรียนรู้": ["Learning progress", "វឌ្ឍនភាពនៃការសិក្សា", "လေ့လာမှုတိုးတက်မှု"], "ภาพประกอบขั้นตอนบริการ (สามารถเพิ่มภาพถ่ายจริงในภายหลังได้)": ["Illustration of this step (real photos can be added later).", "រូបភាពបង្ហាញដំណាក់កាល (អាចបន្ថែមរូបថតពិតពេលក្រោយ)។", "ဤအဆင့်၏ သရုပ်ဖော်ပုံ (နောက်မှ ဓာတ်ပုံအစစ် ထည့်နိုင်သည်)။"]});
 const SITE_LANGS={th:'th-TH',en:'en-GB',km:'km-KH',my:'my-MM'};
 const SITE_LANG_INDEX={en:0,km:1,my:2};
 const siteLangSelect=document.getElementById('site-language');
@@ -646,8 +647,8 @@ document.getElementById('mascot-voice-check')?.addEventListener('click',()=>{
  const available=mascotSynth?mascotSynth.getVoices().map(v=>v.lang).filter((v,i,a)=>a.indexOf(v)===i):[];
  mascotVoiceStatus.textContent=voiceAvailabilityMessage()+' · ภาษาที่ระบบพบ: '+(available.join(', ')||'ยังไม่พบ');
 });
-const siteTranslationObserver=new MutationObserver(mutations=>{if(siteTranslateBusy)return;if(mutations.every(m=>(m.target.nodeType===1?m.target:m.target.parentElement)?.closest?.('#translation-status')))return;siteApplyLanguage()});
-siteTranslationObserver.observe(document.body,{childList:true,subtree:true,characterData:true});
+let siteTranslationQueued=false;const siteTranslationObserver=new MutationObserver(mutations=>{if(siteTranslateBusy||siteTranslationQueued)return;if(mutations.every(m=>(m.target.nodeType===1?m.target:m.target.parentElement)?.closest?.('#translation-status')))return;siteTranslationQueued=true;requestAnimationFrame(()=>{siteTranslationQueued=false;siteApplyLanguage()})});
+siteTranslationObserver.observe(document.body,{childList:true,subtree:true});
 siteApplyLanguage();
 setMascotStep(initial||stations[0].id);
 
