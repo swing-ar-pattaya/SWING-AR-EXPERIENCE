@@ -290,9 +290,9 @@ button:focus-visible,a:focus-visible,select:focus-visible,summary:focus-visible{
 <body>
 <header class="topbar"><div class="top-inner"><a aria-label="SWING Pattaya หน้าแรก" class="brand" href="#home"><img alt="SWING official logo" src="./swing-logo.png"/><span class="brand-copy">PATTAYA<br/>AR EXPERIENCE</span></a><nav aria-label="เมนูหลัก" class="nav"><a href="#home">หน้าแรก</a><a href="#steps">ขั้นตอนบริการ</a><a href="#knowledge">ความรู้สุขภาพ</a></nav><div class="lang-picker"><label for="site-language">🌐</label><select id="site-language" aria-label="Choose website language"><option value="th">🇹🇭 ไทย</option><option value="en">🇬🇧 English</option><option value="km">🇰🇭 ខ្មែរ</option><option value="my">🇲🇲 မြန်မာ</option></select><div class="flag-buttons" role="group" aria-label="เลือกภาษา / Choose language"><button type="button" class="flag-button" data-language="th" aria-label="ภาษาไทย" title="ภาษาไทย" aria-pressed="true"><svg class="flag-icon" viewBox="0 0 32 20" width="30" height="20" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="20" fill="#a51931"/><rect y="3.33" width="32" height="13.34" fill="#fff"/><rect y="6.67" width="32" height="6.66" fill="#2d2a4a"/></svg></button><button type="button" class="flag-button" data-language="en" aria-label="English" title="English" aria-pressed="false"><svg class="flag-icon" viewBox="0 0 32 20" width="30" height="20" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="20" fill="#012169"/><path d="M0 0L32 20M32 0L0 20" stroke="#fff" stroke-width="5"/><path d="M0 0L32 20M32 0L0 20" stroke="#c8102e" stroke-width="2"/><path d="M16 0V20M0 10H32" stroke="#fff" stroke-width="7"/><path d="M16 0V20M0 10H32" stroke="#c8102e" stroke-width="3.4"/></svg></button><button type="button" class="flag-button" data-language="km" aria-label="ភាសាខ្មែរ" title="ភាសាខ្មែរ" aria-pressed="false"><svg class="flag-icon" viewBox="0 0 32 20" width="30" height="20" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="20" fill="#032ea1"/><rect y="5" width="32" height="10" fill="#e00025"/><g fill="#fff"><path d="M9 13.6h14v1H9zM11 12.1h10v1.4H11zM12 9.8h8v2.4h-8zM13 8.6h6v1.5h-6zM14 7.4h4v1.3h-4zM15.2 6.1h1.6v1.5h-1.6z"/><path d="M10.5 11.1h2v2.3h-2zm9 0h2v2.3h-2zM11 10.1l.5-1.5.5 1.5zm9 0l.5-1.5.5 1.5z"/></g></svg></button><button type="button" class="flag-button" data-language="my" aria-label="မြန်မာဘာသာ" title="မြန်မာဘာသာ" aria-pressed="false"><svg class="flag-icon" viewBox="0 0 32 20" width="30" height="20" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="20" fill="#fecb00"/><rect y="6.667" width="32" height="6.666" fill="#34b233"/><rect y="13.333" width="32" height="6.667" fill="#ea2839"/><path d="M16 2.2l2.35 7.1h7.5l-6.05 4.4 2.3 7.1-6.1-4.4-6.1 4.4 2.3-7.1-6.05-4.4h7.5z" fill="#fff" transform="translate(0 -1.5) scale(1 .93)"/></svg></button></div></div></div></header>
 <main class="container">
-<section class="hero" id="home"><div class="hero-copy"><div class="eyebrow">SWING PATTAYA · INTERACTIVE EXPERIENCE</div><h1>เรียนรู้บริการสุขภาพ<br/><span>ในรูปแบบใหม่</span></h1><p class="lead">สำรวจขั้นตอนการรับบริการของ SWING พัทยา ผ่านตัวละคร 3D และเทคโนโลยี Augmented Reality (AR) ที่ช่วยให้การเรียนรู้เป็นเรื่องง่ายและเข้าถึงได้</p><div class="hero-actions"><a class="btn primary" href="#steps">สำรวจ 4 ขั้นตอนบริการ <span aria-hidden="true">→</span></a><a class="btn secondary" href="#cat-model">ดูโมเดล 3D</a></div><p class="model-status" id="model-status" role="status">กำลังโหลดโมเดล 3D…</p></div><div class="model-panel" id="cat-model"><span class="model-label">INTERACTIVE 3D MODEL</span><model-viewer alt="แฮปปี้ลัคกี้ (Happy Lucky) มาสคอต 3D ของ SWING พัทยา" ar="" ar-modes="webxr scene-viewer quick-look" ar-placement="floor" ar-scale="auto" auto-rotate="" camera-controls="" environment-image="neutral" exposure="1" id="cat" loading="eager" rotation-per-second="8deg" shadow-intensity="1" src="./happy_lucky_ar_ready.glb"><button class="ar-button" slot="ar-button" type="button">เปิด AR บนมือถือ</button></model-viewer><div class="mascot-guide" id="mascot-guide" aria-label="มาสคอตแนะนำขั้นตอนบริการ"><div class="mascot-guide-title">แฮปปี้ลัคกี้ (Happy Lucky) พาชมบริการ</div><div class="mascot-speech" id="mascot-speech" role="status" aria-live="polite">สวัสดีครับ! ผมแฮปปี้ลัคกี้ ผู้ช่วยแนะนำบริการของ SWING พัทยาครับ เลือกขั้นตอนด้านล่าง แล้วผมจะเล่าให้ฟังว่าเกิดอะไรขึ้นบ้างครับ</div><button type="button" id="mascot-expand" class="mascot-expand" aria-controls="mascot-speech" aria-expanded="false">อ่านคำบรรยายทั้งหมด ↓</button><div class="mascot-voice-toolbar" role="group" aria-label="เสียงบรรยายแฮปปี้ลัคกี้"><button type="button" id="mascot-voice-toggle" aria-pressed="false">🔊 เปิดเสียงบรรยาย</button><button type="button" id="mascot-voice-replay" disabled>↻ ฟังขั้นตอนนี้</button><span id="mascot-voice-status" role="status" aria-live="polite">แตะปุ่มเพื่อเริ่มเสียงบนมือถือ</span></div><div class="mascot-guide-controls" id="mascot-guide-controls" aria-label="เลือกขั้นตอนที่ต้องการเรียนรู้"></div><div class="mascot-guide-actions"><button type="button" id="mascot-show-step">ดูภาพจริงและรายละเอียด ↓</button><button type="button" class="secondary" id="mascot-next-step">ขั้นตอนถัดไป →</button></div></div></div></section>
+<section class="hero" id="home"><div class="hero-copy"><div class="eyebrow">SWING PATTAYA · INTERACTIVE EXPERIENCE</div><h1>เรียนรู้บริการสุขภาพ<br/><span>ในรูปแบบใหม่</span></h1><p class="lead">สำรวจขั้นตอนการรับบริการของ SWING พัทยา ผ่านตัวละคร 3D และเทคโนโลยี Augmented Reality (AR) ที่ช่วยให้การเรียนรู้เป็นเรื่องง่ายและเข้าถึงได้</p><div class="hero-actions"><a class="btn primary" href="#steps">สำรวจ 4 ขั้นตอนบริการ <span aria-hidden="true">→</span></a><a class="btn secondary" href="#cat-model">ดูโมเดล 3D</a></div><p class="model-status" id="model-status" role="status">กำลังโหลดโมเดล 3D…</p></div><div class="model-panel" id="cat-model"><span class="model-label">INTERACTIVE 3D MODEL</span><model-viewer alt="แฮปปี้ลัคกี้ (Happy Lucky) มาสคอต 3D ของ SWING พัทยา" ar="" ar-modes="webxr scene-viewer quick-look" ar-placement="floor" ar-scale="auto" auto-rotate="" camera-controls="" environment-image="neutral" exposure="1" id="cat" loading="eager" rotation-per-second="8deg" shadow-intensity="1" src="./happy_lucky_ar_ready.glb"><button class="ar-button" slot="ar-button" type="button">เปิด AR บนมือถือ</button></model-viewer><div class="mascot-guide" id="mascot-guide" aria-label="มาสคอตแนะนำขั้นตอนบริการ"><div class="mascot-guide-title">แฮปปี้ลัคกี้ (Happy Lucky) พาชมบริการ</div><div class="mascot-speech" id="mascot-speech" role="status" aria-live="polite">สวัสดีครับ! ผมแฮปปี้ลัคกี้ ผู้ช่วยแนะนำบริการของ SWING พัทยาครับ เลือกขั้นตอนด้านล่าง แล้วผมจะเล่าให้ฟังว่าเกิดอะไรขึ้นบ้างครับ</div><button type="button" id="mascot-expand" class="mascot-expand" aria-controls="mascot-speech" aria-expanded="false">อ่านคำบรรยายทั้งหมด ↓</button><div class="mascot-voice-toolbar" role="group" aria-label="เสียงบรรยายแฮปปี้ลัคกี้"><button type="button" id="mascot-voice-toggle" aria-pressed="false">🔊 เปิดเสียงบรรยาย</button><button type="button" id="mascot-voice-replay" disabled>↻ ฟังขั้นตอนนี้</button><span id="mascot-voice-status" role="status" aria-live="polite">แตะปุ่มเพื่อเริ่มเสียงบนมือถือ</span><button type="button" id="mascot-voice-check" class="secondary" style="grid-column:1/-1">ตรวจสอบเสียงในอุปกรณ์ / Check voices</button></div><div class="mascot-guide-controls" id="mascot-guide-controls" aria-label="เลือกขั้นตอนที่ต้องการเรียนรู้"></div><div class="mascot-guide-actions"><button type="button" id="mascot-show-step">ดูภาพจริงและรายละเอียด ↓</button><button type="button" class="secondary" id="mascot-next-step">ขั้นตอนถัดไป →</button></div></div></div></section>
 <section class="ar-help" aria-label="คำแนะนำการใช้ AR"><div><strong>🐱 เล่นกับแฮปปี้ลัคกี้ในโลกจริง</strong><p>เปิดกล้อง AR แล้วหันกล้องไปยังพื้นเรียบที่มีแสงเพียงพอ จากนั้นใช้นิ้วสองนิ้วบีบหรือถ่างเพื่อปรับขนาด และลากเพื่อย้ายตำแหน่ง (ขึ้นอยู่กับอุปกรณ์)</p></div><span class="ar-help-tag">AR · ปรับขนาดได้</span></section>
-<section class="section" id="steps"><div class="section-head"><div><div class="eyebrow">SERVICE JOURNEY</div><h2>4 ขั้นตอนการรับบริการ</h2><p class="sub">เลือกขั้นตอนเพื่อดูรายละเอียดของการรับบริการ</p></div></div><div class="steps" id="station-grid"></div><div aria-live="polite" class="detail" id="station-detail" tabindex="-1"></div></section>
+<section class="section" id="steps"><div class="section-head"><div><div class="eyebrow">SERVICE JOURNEY</div><h2>4 ขั้นตอนการรับบริการ</h2><p class="sub">เลือกขั้นตอนเพื่อดูรายละเอียดของการรับบริการ</p></div></div><p id="translation-status" class="notice" hidden></p><div class="steps" id="station-grid"></div><div aria-live="polite" class="detail" id="station-detail" tabindex="-1"></div></section>
 <section class="section" id="knowledge"><div class="eyebrow">HEALTH KNOWLEDGE</div><div class="knowledge-head"><div><h2>ความรู้สุขภาพทางเพศ</h2><p class="sub">เรื่องสำคัญที่อยากให้รู้ เข้าใจง่าย และเลือกฟังได้</p></div><span class="knowledge-note">เรียนรู้ตามจังหวะของคุณ ♡</span></div><div class="info-grid"><article class="info"><div class="info-top"><span aria-hidden="true" class="info-symbol">♡</span><span class="info-kicker">HEALTH GUIDE</span></div><h3>HIV</h3><strong class="info-subtitle">รู้จักการตรวจและการป้องกัน</strong><p>เอชไอวีเป็นไวรัสที่ส่งผลต่อระบบภูมิคุ้มกัน การตรวจช่วยให้รู้สถานะและวางแผนดูแลสุขภาพได้</p><div class="info-actions"><button aria-label="ฟังข้อมูลเรื่อง HIV" class="read-aloud health-voice" data-health="เอชไอวี" type="button">🔊 ฟังเรื่องนี้</button><button aria-expanded="false" class="info-more" type="button">อ่านเพิ่มเติม <span aria-hidden="true">⌄</span></button></div><div class="info-expanded" hidden=""><ul><li>เอชไอวีติดต่อได้ผ่านเลือดและสารคัดหลั่งบางชนิด ไม่ติดต่อจากการกอด จับมือ หรือใช้ภาชนะร่วมกัน</li><li>การตรวจแต่ละวิธีมีช่วงระยะเวลาที่อาจยังตรวจไม่พบเชื้อ หากเพิ่งมีความเสี่ยงควรปรึกษาเจ้าหน้าที่เรื่องเวลาตรวจซ้ำ</li><li>การใช้ถุงยาง PrEP และการตรวจสม่ำเสมอช่วยลดความเสี่ยง ผู้ที่มีเอชไอวีและรักษาจนตรวจไม่พบเชื้ออย่างต่อเนื่องจะไม่ถ่ายทอดเชื้อผ่านเพศสัมพันธ์ (U=U)</li><li>ผลตรวจลบหลังความเสี่ยงล่าสุดอาจยังไม่ยืนยันว่าไม่มีเชื้อ เพราะมีช่วงตรวจไม่พบเชื้อ (window period) ควรปรึกษาเรื่องการตรวจซ้ำ</li><li>หากผลตรวจคัดกรองเป็นบวก ต้องตรวจยืนยันตามแนวทางก่อนสรุปผล</li></ul><button class="read-aloud health-voice-full" type="button">🔊 ฟังรายละเอียดทั้งหมด</button><p class="health-next">ต้องการตรวจหรือปรึกษา? ติดต่อเจ้าหน้าที่ SWING พัทยา เพื่อประเมินบริการที่เหมาะสม</p><a class="health-source" href="https://www.cdc.gov/hiv/testing/index.html" rel="noopener noreferrer" target="_blank">อ่านข้อมูลอ้างอิงเพิ่มเติม ↗</a></div></article><article class="info"><div class="info-top"><span aria-hidden="true" class="info-symbol">✚</span><span class="info-kicker">HEALTH GUIDE</span></div><h3>PrEP</h3><strong class="info-subtitle">ป้องกันก่อนมีความเสี่ยง</strong><p>ยาป้องกันเอชไอวีก่อนสัมผัสเชื้อ เหมาะสำหรับผู้ที่ต้องการลดโอกาสรับเชื้อ</p><div class="info-actions"><button aria-label="ฟังข้อมูลเรื่อง PrEP" class="read-aloud health-voice" data-health="เพร็พ" type="button">🔊 ฟังเรื่องนี้</button><button aria-expanded="false" class="info-more" type="button">อ่านเพิ่มเติม <span aria-hidden="true">⌄</span></button></div><div class="info-expanded" hidden=""><ul><li>PrEP มีหลายรูปแบบ เช่น แบบกิน และบางพื้นที่มีแบบฉีด โดยต้องประเมินความเหมาะสมกับบุคลากรสุขภาพ</li><li>ก่อนเริ่มใช้ต้องตรวจเอชไอวี และอาจต้องตรวจการทำงานของไตหรือไวรัสตับอักเสบบีตามชนิดยาและแนวทางบริการ</li><li>PrEP ป้องกันเอชไอวี แต่ไม่ป้องกันโรคติดต่อทางเพศสัมพันธ์ชนิดอื่น จึงยังควรใช้วิธีป้องกันร่วมกัน</li><li>PrEP เหมาะกับผู้ที่ยังไม่มีเอชไอวีและต้องการลดความเสี่ยง ควรเลือกสูตรยาและวิธีใช้ร่วมกับผู้ให้บริการ</li><li>หากมีความเสี่ยงเกิดขึ้นภายใน 72 ชั่วโมงและยังไม่ได้ใช้ PrEP อย่างมีประสิทธิภาพ ให้รีบปรึกษาเรื่อง PEP</li></ul><button class="read-aloud health-voice-full" type="button">🔊 ฟังรายละเอียดทั้งหมด</button><p class="health-next">ต้องการตรวจหรือปรึกษา? ติดต่อเจ้าหน้าที่ SWING พัทยา เพื่อประเมินบริการที่เหมาะสม</p><a class="health-source" href="https://www.cdc.gov/hiv/prevention/prep.html" rel="noopener noreferrer" target="_blank">อ่านข้อมูลอ้างอิงเพิ่มเติม ↗</a></div></article><article class="info"><div class="info-top"><span aria-hidden="true" class="info-symbol">✦</span><span class="info-kicker">HEALTH GUIDE</span></div><h3>PEP (เป๊บ)</h3><strong class="info-subtitle">ป้องกันหลังมีความเสี่ยง</strong><p>ยาต้านเอชไอวีสำหรับใช้หลังเหตุการณ์ที่อาจสัมผัสเชื้อ ต้องประเมินและเริ่มโดยเร็วที่สุด</p><div class="info-actions"><button aria-label="ฟังข้อมูลเรื่อง PEP (เป๊บ)" class="read-aloud health-voice" data-health="เป๊บ" type="button">🔊 ฟังเรื่องนี้</button><button aria-expanded="false" class="info-more" type="button">อ่านเพิ่มเติม <span aria-hidden="true">⌄</span></button></div><div class="info-expanded" hidden=""><ul><li>ควรเริ่มยาให้เร็วที่สุด และไม่เกิน 72 ชั่วโมงหลังมีความเสี่ยง อย่ารอให้ครบ 72 ชั่วโมง</li><li>โดยทั่วไปต้องใช้ยาต่อเนื่อง 28 วัน ตามคำแนะนำของบุคลากรสุขภาพ</li><li>ควรเข้ารับการตรวจและติดตามตามนัด PEP ไม่ใช่วิธีป้องกันสำหรับใช้แทน PrEP เป็นประจำ</li><li>PEP เป็นกรณีเร่งด่วน ควรติดต่อสถานพยาบาลทันที ไม่ควรรอให้มีอาการหรือรอผลตรวจของคู่นอน</li><li>หลังจบยา ต้องตรวจติดตามตามกำหนด และพูดคุยเรื่อง PrEP หากยังมีโอกาสสัมผัสเชื้อในอนาคต</li></ul><button class="read-aloud health-voice-full" type="button">🔊 ฟังรายละเอียดทั้งหมด</button><p class="health-next">ต้องการตรวจหรือปรึกษา? ติดต่อเจ้าหน้าที่ SWING พัทยา เพื่อประเมินบริการที่เหมาะสม</p><a class="health-source" href="https://www.cdc.gov/hiv/prevention/pep.html" rel="noopener noreferrer" target="_blank">อ่านข้อมูลอ้างอิงเพิ่มเติม ↗</a></div></article><article class="info"><div class="info-top"><span aria-hidden="true" class="info-symbol">◎</span><span class="info-kicker">HEALTH GUIDE</span></div><h3>STI</h3><strong class="info-subtitle">เข้าใจโรคติดต่อทางเพศสัมพันธ์</strong><p>โรคติดต่อทางเพศสัมพันธ์ เช่น ซิฟิลิส หนองใน และหนองในเทียม บางคนอาจไม่มีอาการ</p><div class="info-actions"><button aria-label="ฟังข้อมูลเรื่อง STI" class="read-aloud health-voice" data-health="เอสทีไอ" type="button">🔊 ฟังเรื่องนี้</button><button aria-expanded="false" class="info-more" type="button">อ่านเพิ่มเติม <span aria-hidden="true">⌄</span></button></div><div class="info-expanded" hidden=""><ul><li>อาการที่อาจพบ เช่น แผล ผื่น ตกขาวผิดปกติ ปัสสาวะแสบขัด แต่ไม่มีอาการก็ยังอาจติดเชื้อได้</li><li>การตรวจตามความเสี่ยงและการรักษาที่เหมาะสมช่วยลดภาวะแทรกซ้อนและการแพร่เชื้อ</li><li>ถุงยาง การฉีดวัคซีนที่เหมาะสม และการสื่อสารกับคู่นอนเป็นส่วนหนึ่งของการดูแลสุขภาพทางเพศ</li><li>โรคติดต่อทางเพศสัมพันธ์หลายชนิดไม่มีอาการ จึงควรตรวจตามประวัติความเสี่ยงและตำแหน่งที่สัมผัส</li><li>ไม่ควรซื้อยาปฏิชีวนะกินเอง เพราะอาจรักษาไม่ตรงโรคและเพิ่มปัญหาเชื้อดื้อยา</li></ul><button class="read-aloud health-voice-full" type="button">🔊 ฟังรายละเอียดทั้งหมด</button><p class="health-next">ต้องการตรวจหรือปรึกษา? ติดต่อเจ้าหน้าที่ SWING พัทยา เพื่อประเมินบริการที่เหมาะสม</p><a class="health-source" href="https://www.who.int/news-room/fact-sheets/detail/sexually-transmitted-infections-(stis)" rel="noopener noreferrer" target="_blank">อ่านข้อมูลอ้างอิงเพิ่มเติม ↗</a></div></article><article class="info"><div class="info-top"><span aria-hidden="true" class="info-symbol">✿</span><span class="info-kicker">HEALTH GUIDE</span></div><h3>Mpox</h3><strong class="info-subtitle">รู้จักโรคเอ็มพ็อกซ์และการป้องกัน</strong><p>เอ็มพ็อกซ์เป็นโรคติดเชื้อไวรัสที่แพร่ได้จากการสัมผัสใกล้ชิด โดยเฉพาะการสัมผัสผื่นหรือแผลของผู้ติดเชื้อ</p><div class="info-actions"><button aria-label="ฟังข้อมูลเรื่อง Mpox" class="read-aloud health-voice" data-health="เอ็มพ็อกซ์" type="button">🔊 ฟังเรื่องนี้</button><button aria-expanded="false" class="info-more" type="button">อ่านเพิ่มเติม <span aria-hidden="true">⌄</span></button></div><div class="info-expanded" hidden=""><ul><li>อาการอาจมีผื่นหรือตุ่มเจ็บ ไข้ ปวดเมื่อย และต่อมน้ำเหลืองโต บางรายมีผื่นเพียงไม่กี่จุด</li><li>หลีกเลี่ยงการสัมผัสผื่น แผล และสิ่งของที่ปนเปื้อนของผู้มีอาการสงสัย รวมทั้งปรึกษาบุคลากรสุขภาพเรื่องวัคซีนตามความเสี่ยง</li><li>หากสงสัยว่าติดเชื้อ ควรหลีกเลี่ยงการสัมผัสใกล้ชิด ปิดแผล และติดต่อสถานพยาบาลเพื่อรับการประเมิน</li><li>เชื้อแพร่ผ่านการสัมผัสใกล้ชิด รวมถึงสัมผัสผื่น แผล หรือสิ่งของที่ปนเปื้อน การใช้ถุงยางอย่างเดียวไม่ป้องกันได้ทั้งหมด</li><li>หลังสัมผัสเชื้อควรรีบปรึกษาเรื่องวัคซีน โดยเหมาะที่สุดภายใน 4 วัน และอาจพิจารณาได้ถึง 14 วันหากยังไม่มีอาการ</li></ul><button class="read-aloud health-voice-full" type="button">🔊 ฟังรายละเอียดทั้งหมด</button><p class="health-next">ต้องการตรวจหรือปรึกษา? ติดต่อเจ้าหน้าที่ SWING พัทยา เพื่อประเมินบริการที่เหมาะสม</p><a class="health-source" href="https://www.who.int/news-room/fact-sheets/detail/mpox" rel="noopener noreferrer" target="_blank">อ่านข้อมูลอ้างอิงเพิ่มเติม ↗</a></div></article></div><p class="notice">ข้อมูลเพื่อการเรียนรู้ทั่วไป ไม่ใช้แทนคำแนะนำจากบุคลากรสุขภาพ · <a href="https://www.cdc.gov/hiv/" rel="noopener noreferrer" target="_blank">ข้อมูลอ้างอิง HIV (CDC) ↗</a> · <a href="https://www.who.int/news-room/fact-sheets/detail/mpox" rel="noopener noreferrer" target="_blank">ข้อมูลอ้างอิง Mpox (WHO) ↗</a></p></section><section aria-label="เครื่องมือจัดการลิงก์สำหรับจุดบริการ" class="qr-section"><details><summary>สำหรับเจ้าหน้าที่: ลิงก์ QR Code ประจำจุดบริการ</summary><p class="sub">สแกน QR ของแต่ละจุดเพื่อเปิดข้อมูลเฉพาะขั้นตอนนั้นได้ทันที พิมพ์ QR จากไฟล์ที่แนบในชุดดาวน์โหลด</p><div class="qr-grid" id="qr-list"></div><p class="qr-note">QR เหล่านี้เป็นลิงก์คงที่ของเว็บไซต์เดียวกัน เมื่อแก้เนื้อหาบนเว็บ QR เดิมยังใช้งานได้ ตราบใดที่ที่อยู่เว็บไซต์และชื่อขั้นตอนไม่เปลี่ยน</p></details></section>
 </main><div class="global-voice-bar" id="global-voice-bar" role="status" aria-live="polite"><span id="global-voice-label">แฮปปี้ลัคกี้กำลังอ่าน</span><button type="button" id="global-voice-stop">■ หยุดเสียง</button></div><footer class="footer">SWING Pattaya · Sexual Health Education · AR Experience</footer>
 <script>
@@ -375,39 +375,70 @@ function stopMascotVoice(){
  if(mascotSynth)mascotSynth.cancel();
  mascotUtterance=null;
 }
+function findVoiceForLanguage(lang){
+ if(!mascotSynth)return null;
+ const voices=mascotSynth.getVoices();
+ const prefix={th:'th',en:'en',km:'km',my:'my'}[lang]||'th';
+ const matches=voices.filter(v=>v.lang.toLowerCase().replace(/_/g,'-').split('-')[0]===prefix);
+ return matches.find(v=>v.localService)||matches[0]||null;
+}
+function voiceAvailabilityMessage(){
+ if(!mascotSynth)return 'เบราว์เซอร์นี้ไม่รองรับการอ่านออกเสียง';
+ const lang=typeof siteLanguage==='string'?siteLanguage:'th';
+ const voice=findVoiceForLanguage(lang);
+ if(voice)return 'พร้อมฟังเสียง '+voice.lang+' · แตะปุ่มเพื่อฟัง';
+ const count=mascotSynth.getVoices().length;
+ if(!count)return 'ยังไม่พบเสียงในระบบ · ตรวจสอบ Speech Services / Text-to-speech ในการตั้งค่า Android';
+ return 'ไม่พบเสียงภาษานี้ในอุปกรณ์ · ติดตั้งเสียงภาษาที่เลือกใน Android Text-to-speech';
+}
 function speakMascot(fromTap=false, spokenText=null){
  if(!mascotSynth||!mascotVoiceEnabled)return;
- // Safari/iOS can silently refuse a speech request made immediately after cancel().
- // Do not cancel on the initial tap; for later changes, use a small delay.
- const alreadySpeaking=mascotSynth.speaking||mascotSynth.pending;
- if(alreadySpeaking)mascotSynth.cancel();
- const token=++mascotSpeechToken;
- // Keep medical abbreviations visible on screen; expand them only for speech.
+ const lang=typeof siteLanguage==='string'?siteLanguage:'th';
+ const voice=findVoiceForLanguage(lang);
+ if(!voice){
+  mascotVoiceStatus.textContent=voiceAvailabilityMessage();
+  mascotVoiceEnabled=false;
+  mascotVoiceToggle.setAttribute('aria-pressed','false');
+  mascotVoiceToggle.textContent='▶ แตะเพื่อฟังแฮปปี้ลัคกี้';
+  mascotVoiceReplay.disabled=true;
+  hideGlobalVoice();
+  return;
+ }
  const text=(spokenText===null?mascotSpeech.textContent:spokenText).trim().replace(/\n/g,' ')
-  .replace(/PrEP/gi,siteLanguage==='th'?'เพร็พ':'PrEP')
-  .replace(/HIV/gi,siteLanguage==='th'?'เอช ไอ วี':'HIV')
-  .replace(/PEP\s*\(เป๊บ\)|PEP/gi,siteLanguage==='th'?'เป๊บ':'PEP')
-  .replace(/STI(s)?/gi,siteLanguage==='th'?'เอส ที ไอ':'STI');
+  .replace(/PrEP/gi,lang==='th'?'เพร็พ':'PrEP')
+  .replace(/HIV/gi,lang==='th'?'เอช ไอ วี':'HIV')
+  .replace(/PEP\s*\(เป๊บ\)|PEP/gi,lang==='th'?'เป๊บ':'PEP')
+  .replace(/STI(s)?/gi,lang==='th'?'เอส ที ไอ':'STI');
+ if(!text)return;
+ const token=++mascotSpeechToken;
+ // On Android Chrome, speechSynthesis.cancel() immediately before speak() may silently swallow speech.
+ // A short delay is used only when replacing a currently playing utterance.
+ const wasActive=mascotSynth.speaking||mascotSynth.pending;
+ if(wasActive)mascotSynth.cancel();
  const utterance=new SpeechSynthesisUtterance(text);
- mascotUtterance=utterance; // Keep a strong reference for mobile Safari.
- utterance.lang=(typeof siteLanguage!=='undefined'?SITE_LANGS[siteLanguage]:'th-TH');
- utterance.rate=0.96;
- utterance.pitch=1.12; // Friendly youthful tone, without overly cartoonish pitch; varies by device.
+ mascotUtterance=utterance;
+ utterance.lang=voice.lang;
+ utterance.voice=voice;
+ utterance.rate=.92;
+ utterance.pitch=1.02;
  utterance.volume=1;
- const voice=(typeof siteLanguage!=='undefined' && siteLanguage!=='th') ? mascotSynth.getVoices().find(v=>v.lang.toLowerCase().replace('_','-').startsWith((siteLanguage==='km'?'km':siteLanguage)+'-')) : chooseThaiVoice();
- if(voice)utterance.voice=voice;
-  else if(siteLanguage==='km'||siteLanguage==='my')mascotVoiceStatus.textContent='อุปกรณ์นี้อาจไม่มีเสียงภาษาที่เลือก / Voice may be unavailable';
- utterance.onstart=()=>{if(token===mascotSpeechToken)mascotVoiceStatus.textContent='แฮปปี้ลัคกี้กำลังพูด…'};
- utterance.onend=()=>{if(token===mascotSpeechToken){mascotVoiceStatus.textContent='ฟังจบแล้ว • แตะฟังอีกครั้งได้';mascotUtterance=null}};
- utterance.onerror=(event)=>{if(token===mascotSpeechToken){mascotVoiceStatus.textContent='เล่นเสียงไม่ได้ ('+(event.error||'ไม่ทราบสาเหตุ')+') • ลองแตะฟังอีกครั้ง';mascotUtterance=null}};
- mascotVoiceStatus.textContent='กำลังเริ่มเสียง…';
+ utterance.onstart=()=>{if(token===mascotSpeechToken)mascotVoiceStatus.textContent='กำลังอ่าน ('+voice.lang+')…'};
+ utterance.onend=()=>{if(token===mascotSpeechToken){mascotVoiceStatus.textContent='ฟังจบแล้ว · แตะเพื่อฟังอีกครั้ง';mascotUtterance=null;hideGlobalVoice()}};
+ utterance.onerror=e=>{if(token===mascotSpeechToken){mascotVoiceStatus.textContent='เสียงไม่ทำงาน ('+(e.error||'unknown')+') · ตรวจสอบ Android Text-to-speech และระดับเสียงสื่อ';mascotUtterance=null;hideGlobalVoice()}};
+ mascotVoiceStatus.textContent='กำลังเตรียมเสียง ('+voice.lang+')…';
  const play=()=>{
   if(token!==mascotSpeechToken||!mascotVoiceEnabled)return;
-  try{mascotSynth.speak(utterance);if(mascotSynth.paused)mascotSynth.resume()}
-  catch(e){mascotVoiceStatus.textContent='ไม่สามารถเล่นเสียงได้ กรุณาลองอีกครั้ง'}
+  try{if(mascotSynth.paused)mascotSynth.resume();mascotSynth.speak(utterance)}
+  catch(e){mascotVoiceStatus.textContent='เปิดเสียงไม่ได้ · ตรวจสอบการตั้งค่า Text-to-speech ในโทรศัพท์'}
  };
- if(alreadySpeaking&&!fromTap)setTimeout(play,120);else play();
+ if(wasActive)setTimeout(play,220);else play();
 }
+if(mascotSynth){
+ mascotSynth.addEventListener?.('voiceschanged',()=>{
+  if(!mascotVoiceEnabled)mascotVoiceStatus.textContent=voiceAvailabilityMessage();
+ });
+}
+
 if(!mascotSynth){
  mascotVoiceToggle.disabled=true;
  mascotVoiceReplay.disabled=true;
@@ -567,6 +598,8 @@ function siteApplyLanguage(){
    const next=siteTranslateText(base,siteLanguage);
    if(node.nodeValue!==next)node.nodeValue=next;
   }
+  const note=document.getElementById('translation-status');
+  if(note){note.hidden=siteLanguage==='th';note.textContent={en:'Some detailed service guidance is still in Thai. Please ask SWING staff if you need help.',km:'ព័ត៌មានលម្អិតខ្លះនៅជាភាសាថៃ។ សូមសួរបុគ្គលិក SWING ប្រសិនបើត្រូវការជំនួយ។',my:'အသေးစိတ်လမ်းညွှန်ချက်အချို့သည် ထိုင်းဘာသာဖြင့် ရှိနေဆဲဖြစ်သည်။ အကူအညီလိုပါက SWING ဝန်ထမ်းကို မေးမြန်းပါ။'}[siteLanguage]||'';}
   document.documentElement.lang=SITE_LANGS[siteLanguage];
   siteLangSelect.value=siteLanguage;
   document.querySelectorAll('.flag-button[data-language]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.language===siteLanguage)));
@@ -584,6 +617,12 @@ siteLangSelect.addEventListener('change',()=>{
  stopMascotVoice();
  hideGlobalVoice();
  siteApplyLanguage();
+  setMascotStep(stations[mascotStepIndex].id);
+  mascotVoiceStatus.textContent=voiceAvailabilityMessage();
+});
+document.getElementById('mascot-voice-check')?.addEventListener('click',()=>{
+ const available=mascotSynth?mascotSynth.getVoices().map(v=>v.lang).filter((v,i,a)=>a.indexOf(v)===i):[];
+ mascotVoiceStatus.textContent=voiceAvailabilityMessage()+' · ภาษาที่ระบบพบ: '+(available.join(', ')||'ยังไม่พบ');
 });
 const siteTranslationObserver=new MutationObserver(()=>{if(!siteTranslateBusy)siteApplyLanguage()});
 siteTranslationObserver.observe(document.body,{childList:true,subtree:true,characterData:true});
