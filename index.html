@@ -620,7 +620,7 @@ function siteApplyLanguage(){
    if(node.nodeValue!==next)node.nodeValue=next;
   }
   const note=document.getElementById('translation-status');
-  if(note){note.hidden=siteLanguage==='th';note.textContent={en:'Some detailed service guidance is still in Thai. Please ask SWING staff if you need help.',km:'ព័ត៌មានលម្អិតខ្លះនៅជាភាសាថៃ។ សូមសួរបុគ្គលិក SWING ប្រសិនបើត្រូវការជំនួយ។',my:'အသေးစိတ်လမ်းညွှန်ချက်အချို့သည် ထိုင်းဘာသာဖြင့် ရှိနေဆဲဖြစ်သည်။ အကူအညီလိုပါက SWING ဝန်ထမ်းကို မေးမြန်းပါ။'}[siteLanguage]||'';}
+  if(note){const shouldHide=siteLanguage==='th';if(note.hidden!==shouldHide)note.hidden=shouldHide;const nextNote={en:'Some detailed service guidance is still in Thai. Please ask SWING staff if you need help.',km:'ព័ត៌មានលម្អិតខ្លះនៅជាភាសាថៃ។ សូមសួរបុគ្គលិក SWING ប្រសិនបើត្រូវការជំនួយ។',my:'အသေးစိတ်လမ်းညွှန်ချက်အချို့သည် ထိုင်းဘာသာဖြင့် ရှိနေဆဲဖြစ်သည်။ အကူအညီလိုပါက SWING ဝန်ထမ်းကို မေးမြန်းပါ။'}[siteLanguage]||'';if(note.textContent!==nextNote)note.textContent=nextNote;}
   swingLocalizeGuide();
   document.documentElement.lang=SITE_LANGS[siteLanguage];
   siteLangSelect.value=siteLanguage;
@@ -646,7 +646,7 @@ document.getElementById('mascot-voice-check')?.addEventListener('click',()=>{
  const available=mascotSynth?mascotSynth.getVoices().map(v=>v.lang).filter((v,i,a)=>a.indexOf(v)===i):[];
  mascotVoiceStatus.textContent=voiceAvailabilityMessage()+' · ภาษาที่ระบบพบ: '+(available.join(', ')||'ยังไม่พบ');
 });
-const siteTranslationObserver=new MutationObserver(()=>{if(!siteTranslateBusy)siteApplyLanguage()});
+const siteTranslationObserver=new MutationObserver(mutations=>{if(siteTranslateBusy)return;if(mutations.every(m=>(m.target.nodeType===1?m.target:m.target.parentElement)?.closest?.('#translation-status')))return;siteApplyLanguage()});
 siteTranslationObserver.observe(document.body,{childList:true,subtree:true,characterData:true});
 siteApplyLanguage();
 setMascotStep(initial||stations[0].id);
